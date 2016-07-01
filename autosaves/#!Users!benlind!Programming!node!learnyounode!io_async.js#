@@ -1,7 +1,0 @@
-var fs = require('fs');
-
-var file = process.argv[2];
-if (!file) exit();
-
-var buf = fs.readFileSync(file).toString();
-console.log(buf.split("\n").length - 1);

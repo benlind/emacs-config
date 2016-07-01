@@ -1,3 +1,0 @@
-#!/bin/sh
-
-./vmsim -n 8 -a opt bzip.trace
