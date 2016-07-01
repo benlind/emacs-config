@@ -1,0 +1,17 @@
+# Use C-q as prefix
+unbind-key C-b
+set -g prefix 'C-q'
+bind-key 'C-q' send-prefix
+
+# split panes using | and -
+bind | split-window -h
+bind - split-window -v
+unbind '"'
+unbind %
+
+# Enable mouse control (clickable windows, panes, resizable panes)
+set-option -g mouse on
+# set -g mode-mouse on
+# set -g mouse-resize-pane on
+# set -g mouse-select-pane on
+# set -g mouse-select-window on

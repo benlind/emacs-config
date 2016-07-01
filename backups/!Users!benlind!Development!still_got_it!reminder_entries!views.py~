@@ -1,0 +1,23 @@
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.db.models import F
+from django.views import generic
+from django.utils import timezone
+
+from .models import Entry
+
+class IndexView(generic.ListView):
+    template_name = 'reminder_entries/index.html'
+    context_object_name = 'latest_entry_list'  # has to be named this
+
+    def get_queryset(self):
+        """
+        Return the last five entries, based on modification time.
+        """
+        return Entry.objects.order_by('-modified')[:5]
+
+
+class DetailView(generic.DetailView):
+    model = Entry
+    template_name = 'reminder_entries/detail.html'

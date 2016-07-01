@@ -1,0 +1,9 @@
+{% extends 'still_got_it/base.html' %}
+
+{% block content %}
+
+<h1>{{ entry.title }}</h1>
+
+{{ entry.content }}
+
+{% endblock %}

@@ -1,0 +1,19 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+# Give every model created and modified date fields
+class BaseModel(models.Model):
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        abstract = True
+        
+
+class Entry(models.Model):
+    user = models.ForeignKey(User)
+    title = models.CharField(max_length = 200)
+    content = models.TextField(default='')
+
+    class Meta:
+        verbose_name_plural = "entries"

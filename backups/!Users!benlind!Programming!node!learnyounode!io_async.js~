@@ -1,0 +1,12 @@
+var fs = require('fs');
+
+var file = process.argv[2];
+if (!file) exit();
+
+var buf;
+fs.readFile(file, function doneReading(err, contents) {
+    if (!err) {
+        buf = contents.toString();
+        console.log(buf.split("\n").length - 1);
+    }
+})

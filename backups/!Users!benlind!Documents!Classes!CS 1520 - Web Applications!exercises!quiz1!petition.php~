@@ -1,0 +1,17 @@
+<?php if (!isset($_POST['name']) || !isset($_POST['phone'])): ?>
+    
+    <form action="petition.php" method="post">
+        <input type="text" name="name" placeholder="Name" />
+        <input type="tel" name="phone" placeholder="Phone" />
+    </form>
+    
+<?php
+else:
+
+$file = file('sigs.txt');
+
+foreach ($file as $line) {
+    $line_parts = explode(':', $line);
+    $name = $line_parts[0];
+    echo $name . "<br>";
+}

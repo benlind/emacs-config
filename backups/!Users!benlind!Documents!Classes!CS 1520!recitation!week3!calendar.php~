@@ -1,0 +1,14 @@
+<html>
+	<head>
+	</head>
+	<body>	
+		<p>
+			<?php
+				echo  "Today is: <br/>";
+				$today = date("F j, Y, g:i a"); 
+
+				echo $today;
+			?>
+		</p>
+	</body>		
+</html>

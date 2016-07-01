@@ -1,0 +1,62 @@
+/*******************************************************************************
+ * Class: CS 1555 Database Management Systems
+ * Instructor: Prof. Mohamed Sharaf
+ * Contributors:
+ *   - Benjamin Lind (bdl22)
+ *   - Autumn Good (alg161)
+ *   - Fadi Alchoufete (fba4)
+ *
+ * Driver.java contains functions that interact with the FaceSpace database. It
+ * also contains a demo program that demonstrates the use of all of the
+ * functions.
+ ******************************************************************************/
+
+import java.util.Scanner;
+
+public class Driver {
+    private Scanner scanner;
+
+    public Driver() {
+        scanner = new Scanner(System.in);
+    }
+    
+    public void demo() {
+        System.out.println("Demo!");
+    }
+
+    public void createUser(String name, String email, String dob) {
+        System.out.println("Creating user....");
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("Driver!");
+
+        Driver TestDriver = new Driver();
+        TestDriver.demo();
+
+        String command;
+
+        while (true) {
+            System.out.print("Enter a command: ");
+            command = TestDriver.scanner.nextLine().toLowerCase();
+
+            if (command.equals("quit")) break;
+
+            switch (command) {
+            case "createuser":
+                System.out.println("FUNCTION: createUser()\n");
+
+                System.out.print("Enter a name: ");
+                String name = TestDriver.scanner.nextLine();
+                
+                System.out.print("Enter an email: ");
+                String email = TestDriver.scanner.nextLine();
+                
+                System.out.print("Enter a dob (format: YYYY-MM-DD): ");
+                String dob = TestDriver.scanner.nextLine();
+                
+                TestDriver.createUser(name, email, dob);
+            }
+        }
+    }
+}

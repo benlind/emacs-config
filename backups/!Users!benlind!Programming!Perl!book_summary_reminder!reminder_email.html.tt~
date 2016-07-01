@@ -1,0 +1,8 @@
+<html>
+    <body>
+        <strong>Hi [% name %]</strong>,
+        <p>
+            Today is [% date %]!
+        </p>
+    </body>
+</html>

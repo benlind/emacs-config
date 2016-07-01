@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.reminder.book_summary</string> <!-- just made this up, woo! -->
+
+    <key>OnDemand</key>
+    <false/>
+
+    <!-- <key>UserName</key> -->
+    <!-- <string>benlind</string> -->
+
+    <!-- <key>GroupName</key> -->
+    <!-- <string>anAppropriateGroup</string> -->
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>touch</string>
+      <string>/tmp/helloworld</string>
+      <!-- <string>~/Programming/Perl/book_summary_reminder/book_summary_reminder.pl</string> -->
+    </array>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+      <key>Minute</key>
+      <integer>18</integer>
+      <key>Hour</key>
+      <integer>14</integer>
+      <key>Weekday</key>
+      <integer>0</integer> <!-- 0 and 7 are Sunday -->
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/var/log/book_summary_reminder_stdout.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/var/log/book_summary_reminder_stderr.log</string>
+    
+    <key>Debug</key>
+    <true/>
+  </dict>
+</plist>

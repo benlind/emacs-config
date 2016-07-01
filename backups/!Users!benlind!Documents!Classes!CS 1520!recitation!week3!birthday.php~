@@ -1,0 +1,13 @@
+
+<html>
+	<head>
+	</head>
+	<body>			
+		<form>
+			Enter Birthday:
+			<input name="day"></input>/<input name="month"></input>/<input name="year"></input>
+			<button>Submit</button>
+		</form>		
+	</body>		
+</html>
+

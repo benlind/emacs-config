@@ -1,0 +1,3 @@
+#!/bin/sh
+
+scp -rp cs-1555-project bdl22@unixs.cis.pitt.edu:/afs/pitt.edu/home/b/d/bdl22/private/cs1555/project

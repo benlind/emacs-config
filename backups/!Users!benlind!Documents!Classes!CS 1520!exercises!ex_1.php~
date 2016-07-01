@@ -1,0 +1,15 @@
+<ul>
+<?php
+
+function loopArray($a) {
+    $type = typeof($a);
+    foreach ($a as $val) {
+        print "<li>$val</li>\n";
+    }
+}
+
+$myArray = ['el', 'two', 'another', 'w00t'];
+loopArray($myArray);
+
+?>
+</ul>

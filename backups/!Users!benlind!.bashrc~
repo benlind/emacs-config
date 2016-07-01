@@ -1,0 +1,10 @@
+. ~/.shell/aliases
+. ~/.shell/functions
+. ~/.shell/variables
+
+# Print fortune on new shell
+if [ `which fortune` ]; then
+    echo ""
+    fortune
+    echo ""
+fi

@@ -1,0 +1,260 @@
+#!/usr/bin/env python
+import sys
+import collections
+from optparse import OptionParser
+
+# Parse command line arguments
+parser = OptionParser()
+parser.add_option("-n", "--numframes", dest="numframes")
+parser.add_option("-a", "--algorithm", dest="algorithm")
+parser.add_option("-r", "--refresh", dest="refresh")
+parser.add_option("-t", "--tau", dest="tau")
+parser.add_option("-q", "--quiet", dest="quiet", action="store_true")
+(options, args) = parser.parse_args()
+
+if not options.numframes:
+    parser.error("Number of frames not given")
+if not options.algorithm:
+    parser.error("Algorithm not given")
+if not options.algorithm in ('opt', 'clock', 'nru', 'work'):
+    parser.error("Algorithm must be opt, clock, nru, or work")
+if not len(args):
+    parser.error("Trace file not given")
+
+quiet = options.quiet
+trace_filename = args[0]
+
+def main():
+    PT = PageTable(int(options.numframes))
+
+    trace_f = open(trace_filename)
+    try:
+        i = None  # for testing: number of lines to read
+        command_count    = 0  # how many commands have been read?
+        page_fault_count = 0  # number of page faults occured
+        write_count      = 0  # number of pages written out to disk
+        
+        for line in trace_f:
+            (address, operation) = parse_line(line)
+            page = PT.page_from_address(address)
+
+            command_count += 1
+
+            # Print address and operation (no newline)
+            if not quiet: sys.stdout.write(str(address) + " " + operation + ":\t")
+
+            if not PT.is_page_fault(page):
+                # No page fault, so move to next command
+                if not quiet: print "Hit"
+                if operation == "W":
+                    PT.mark_page_dirty(page)
+                # XXX: Otherwise mark as referenced?
+                continue
+
+            page_fault_count += 1
+
+            if (not PT.page_frames_full()):
+                # There are free frames, so swap in current page
+                if not quiet: print "Populating frame"
+                PT.populate_frame(page)
+            else:
+                # Physical memory is full!
+                # Run page replacement algorithm to evict & swap in page
+                dirty = 0
+
+                if not quiet: print "Running replacement algorithm"
+                if options.algorithm == "opt":
+                    # Note: every page replacement algorithm returns whether or not
+                    # the evicted page was dirty (had to be written to disk)
+                    dirty = PT.page_replace_opt(page, command_count)
+                elif options.algorithm == "clock":
+                    dirty = PT.page_replace_clock(page)
+                elif options.algorithm == "nru":
+                    dirty = PT.page_replace_nru(page)
+                else: # options.algorithm == "work":
+                    dirty = PT.page_replace_work(page)
+
+                if dirty:
+                    # The swapped out page was dirty (had to be written to disk)
+                    write_count += 1
+                    
+            if operation == "W":
+                PT.mark_page_dirty(page)
+
+            if i != None:
+                i -= 1
+                if i <= 0:
+                    break
+
+        print "Algorithm:\t\t", options.algorithm
+        print "Number of frames:\t", options.numframes
+        print "Total memory accesses:\t", command_count
+        print "Total page faults:\t", page_fault_count
+        print "Total writes to disk:\t", write_count
+    finally:
+        trace_f.close()
+
+class PageTable:
+    """A page table for mapping virtual to physical memory"""
+
+    valid_ptes    = {}  # valid Page Table Entries (Virtual Memory)
+    page_frames   = []  # (Physical Memory)
+    page_frames_idx = {}  # index for tracking pages to frame position
+    full_frames   = 0   # number of frames in use
+    total_frames  = None
+    
+    clock_cur_idx = 0  # index of the current clock position
+
+    # For Opt, keep a dictionary of queues to record every appearance of every
+    # page reference, to calculate the longest distance
+    page_appearances = None
+
+    def __init__(self, frames):
+        self.total_frames = frames
+        self.page_frames  = [None] * frames
+
+    def is_page_fault(self, page):
+        """Returns whether accessing the passed address will cause a page fault"""
+        # If the corresponding page doesn't exist, it will cause a page fault
+        return page not in self.page_frames_idx
+
+    def page_from_address(self, address):
+        """Returns the virtual page number that the passed address corresponds to"""
+        return address >> 12
+
+    def page_frames_full(self):
+        """Is the physical memory full?"""
+        return self.full_frames >= self.total_frames
+
+    def populate_frame(self, page):
+        """Move the passed page into a frame."""
+
+        # Find the first empty frame
+        empty_idx = next((i for i, j in enumerate(self.page_frames) if j == None), None)
+        if not len(self.page_frames): empty_idx = 0
+        
+        if self.page_frames_full() or empty_idx == None:
+            sys.exit("ERROR: Attempting to insert page into full frame array")
+
+        # Insert the frame into the list
+        self.full_frames += 1
+
+        self.page_frames[empty_idx] = FrameEntry(page, False, True)
+        self.page_frames_idx[page] = len(self.page_frames) - 1
+
+    def evict_page(self, page):
+        if not page in self.page_frames_idx:
+            sys.exit("ERROR: evict_page() page not found in frames")
+
+        dirty = self.page_frames[self.page_frames_idx[page]].dirty
+        self.page_frames[self.page_frames_idx[page]] = None
+        del self.page_frames_idx[page]
+        self.full_frames -= 1
+        return dirty
+
+    def mark_page_dirty(self, page):
+        if not page in self.page_frames_idx:
+            sys.exit("ERROR: mark_page_dirty() page not found in frames")
+
+        self.page_frames[self.page_frames_idx[page]].dirty = True
+
+    def page_replace_opt(self, page, command_count):
+        if (self.page_appearances == None):
+            # Build page appearances dictionary
+            print "Building page appearances dictionary..."
+
+            self.page_appearances = {}
+            
+            trace_f = open(trace_filename)
+            try:
+                line_num = 0
+                for line in trace_f:
+                    line_num += 1
+                    (address, operation) = parse_line(line)
+                    page = self.page_from_address(address)
+
+                    if not page in self.page_appearances:
+                        self.page_appearances[page] = []
+
+                    # Add the current line number to the end of this page's
+                    # appearance list
+                    self.page_appearances[page].append(line_num)
+            finally:
+                trace_f.close()
+            
+        # Loop through the appearance list of each frame's page to find the page
+        # that will not be used for the longest period of time
+        farthest_page = None
+        farthest_dist = 0
+        for page_key in self.page_frames_idx:
+            cur_appearances = self.page_appearances[page_key]
+            
+            # Remove appearances that occurred before the current line
+            while len(cur_appearances) > 0 and cur_appearances[0] <= command_count:
+                cur_appearances.pop(0)
+
+            if not len(cur_appearances):
+                # This page doesn't ever appear again, so stop and evict it
+                farthest_page = page_key
+                break
+
+            new_dist = cur_appearances[0] - command_count
+            if new_dist > farthest_dist:
+                farthest_dist = new_dist
+                farthest_page = page_key
+
+        # Evict the furthest away page and return whether it was dirty
+        # print "\tTrying to insert page " + str(page)
+        # print "\tPrevious frame list: " + str(self.page_frames)
+        # print "\t\t(count = " + str(len(self.page_frames)) + ")"
+        # print "\tEvicting page " + str(farthest_page)
+        dirty = self.evict_page(farthest_page)
+        self.populate_frame(page)
+        # print "\t...was that page dirty?: " + str(dirty)
+        # print "\tNew frame list: " + str(self.page_frames)
+        # print "\t\t(count = " + str(len(self.page_frames)) + ")"
+        return dirty
+
+    def page_replace_clock(self, page):
+        start_idx = self.clock_cur_idx  # pick up where we left off
+        dirty = 0
+
+        # Loop through each frame, looking for an unreferenced page
+        while True:
+            if self.page_frames[self.clock_cur_idx].referenced:
+                # This frame is referenced, so give it a second chance by
+                # marking it as newest and removing its referenced status
+                self.page_frames[self.clock_cur_idx].referenced = False
+            else:
+                # Unreferenced frame...evict and replace!
+                prev_page = self.page_frames[self.clock_cur_idx].page
+                dirty = self.page_frames[self.clock_cur_idx].dirty
+                self.page_frames[self.clock_cur_idx] = FrameEntry(page, False, True)
+                del self.page_frames_idx[prev_page]
+                self.page_frames_idx[page] = self.clock_cur_idx
+                return dirty
+                
+            self.clock_cur_idx = (self.clock_cur_idx + 1) % self.total_frames
+            
+            if self.clock_cur_idx == start_idx:
+                print "Clock looping around to beginning"
+
+
+
+def parse_line(line):
+    cmd_parts = line.rstrip().split()
+    address = int(cmd_parts[0], 16)
+    operation = cmd_parts[1]
+    return (address, operation)
+
+
+class FrameEntry:
+    def __init__(self, p, d, r, t = None):
+        self.page       = p
+        self.dirty      = d
+        self.referenced = r
+        self.time       = t
+
+
+if __name__ == '__main__':
+    main()

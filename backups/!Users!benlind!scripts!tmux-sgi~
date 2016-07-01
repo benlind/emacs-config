@@ -1,0 +1,6 @@
+#!/bin/sh
+tmux new-session -d 'emacs'
+tmux split-window -v
+tmux resize-pane -D 13
+tmux split-window -h
+tmux -2 attach-session -d 

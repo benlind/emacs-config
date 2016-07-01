@@ -1,0 +1,13 @@
+from django.views import generic
+
+class IndexView(generic.TemplateView):
+    template_name = 'still_got_it/index.html'
+
+
+class DetailView(generic.DetailView):
+    model = Entry
+    template_name = 'reminder_entries/detail.html'
+    
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):        
+        return super(DetailView, self).dispatch(request, *args, **kwargs)

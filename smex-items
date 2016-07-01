@@ -1,0 +1,39 @@
+
+;; ----- smex-history -----
+(
+ linum-mode
+ fci-mode
+ package-list-packages
+ term
+ newline-and-indent
+ web-mode
+ save-buffer
+)
+
+;; ----- smex-data -----
+(
+ (list-packages . 3)
+ (yas-new-snippet . 1)
+ (comment-box . 9)
+ (rename-file . 1)
+ (web-mode . 11)
+ (auto-indent-mode . 1)
+ (xml-mode . 2)
+ (set-variable . 1)
+ (linum-mode . 8)
+ (emacs-version . 1)
+ (mkdir . 3)
+ (sh-mode . 9)
+ (delete-file . 1)
+ (python-mode . 1)
+ (html-mode . 1)
+ (fci-mode . 5)
+ (package-install . 1)
+ (package-list-packages . 3)
+ (magit-status . 1)
+ (php-mode . 1)
+ (save-buffer . 1)
+ (swap-buffers . 3)
+ (newline-and-indent . 1)
+ (term . 1)
+)

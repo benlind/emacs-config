@@ -1,0 +1,15 @@
+Add dropUser(); improve formatting and validation
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Mon Apr 25 11:44:57 2016 -0400
+#
+# On branch master
+# Your branch is ahead of 'origin/master' by 1 commit.
+#   (use "git push" to publish your local commits)
+#
+# Changes to be committed:
+#	modified:   Driver.java
+#	modified:   create-tables.sql
+#

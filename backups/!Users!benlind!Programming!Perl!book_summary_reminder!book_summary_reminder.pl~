@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use WWW::Curl::Easy;
+use XML::Simple;
+use Data::Dumper;
+
+=head1 VERSION 0.1
+
+=head1 SUMMARY
+
+book_summary_reminder periodically sends you emails with summaries of books you
+have read in the past. It gets your book list from Goodreads.com and chooses a
+book that you read more than 3 months ago. Then it gets a summary of the book
+from either Sparknotes or Wikipedia.
+
+=cut
+
+#######################
+# RETRIEVE READ BOOKS #
+#######################
+
+my $curl = WWW::Curl::Easy->new;
+my $uri = 'https://www.goodreads.com/review/list.xml?'
+    . 'key=D7IhUMPNv6SS8h62A5b2Q'  # API key
+    . '&v=2'
+    . '&id=3325070'                # user ID
+    . '&shelf=read'
+    . '&sort=date_read'
+    . '&order=d'                   # most recently read books first
+    . '&per_page=200';
+
+$curl->setopt(CURLOPT_URL, $uri);
+
+my $books_xml;
+$curl->setopt(CURLOPT_WRITEDATA, \$books_xml);
+
+my $retcode = $curl->perform;
+if ($retcode != 0) {
+    die "ERROR: $retcode " . $curl->strerror($retcode) . " " . $curl->errbuf . "\n";
+}
+
+my $response_code = $curl->getinfo(CURLINFO_HTTP_CODE);
+if ($response_code != 200) {
+    die "ERROR: Received response code $response_code from Goodreads.com for uri $uri";
+}
+
+my $reviews = XMLin($books_xml, ForceArray => [ 'id' ], )->{'reviews'}->{'review'};
+
+print scalar @$reviews;
+
+# for my $review (@$reviews) {
+#     print "Review\n";
+# }

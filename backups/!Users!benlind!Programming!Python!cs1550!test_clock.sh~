@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# "$@" is the arguments passed to this script
+./vmsim -n 8 -a opt bzip.trace "$@"

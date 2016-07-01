@@ -1,0 +1,34 @@
+public class Google1 {
+    public long analyze(String[] code_arg) {
+        StringBuilder code = new StringBuilder(String.join("", code_arg).replaceAll("\\s+", ""));
+        
+        return analyze_r(code);
+    }
+            
+    public long analyze_r(StringBuilder code) {
+        if (code.length() == 0) {
+            return 0;
+        }
+        
+        long exec_count = 0;
+        
+        while (true) {
+            if (code.startsWith("BASIC;")) {
+                exec_count++;
+                code.delete(0, 5);
+                continue;
+            }
+            if (code.startsWith("for(")) {
+                code.delete(0, 3);
+                int loop_count_end = code.indexOf(")");
+                long loop_count = Integer.parseInt(code.substring(0, loop_count_end));
+                code.delete(0, loop_count_end);
+                exec_count += loop_count * analyze_r(code);
+                continue;
+            }
+            if (code.startsWith("}")) {
+                return exec_count;
+            }
+        }
+    }
+}

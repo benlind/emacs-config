@@ -1,0 +1,41 @@
+#!/usr/bin/python
+import sys
+import random
+import datetime
+
+def main():
+    sql = list()
+
+    user_sql = random_user_sql(10)
+    sql.append(user_sql)
+
+    
+def random_user_sql(num_to_generate):
+    first_names_pool = [
+        "John", "Mary", "Tim", "Alice", "Ben", "Jane", "Tom", "Emily"
+    ]
+    last_names_pool = [
+        "Doe", "Cooper", "Brown", "James", "Johnson", "Smith", "Fields"
+    ]
+    sql = list()
+    dob_range_start = datetime.datetime.strptime('1940-01-01 00:00:00', '%Y-%m-%d %H:%M:%S')
+    dob_range_end   = datetime.datetime.strptime('2000-01-01 00:00:00', '%Y-%m-%d %H:%M:%S')
+
+    for i in range (0, num_to_generate):
+        fname = random.choice(first_names_pool)
+        lname = random.choice(last_names_pool)
+        dob = random_date_between(dob_range_start, dob_range_end)
+        sql.append("INSERT INTO User (user_id, fname, lname, email, dob) VALUES (%d, '%s', '%s', '%s', TO_DATE('%s', 'yyyy-mm-dd hh24:mi:ss'))" % (i, fname, lname, 'test@test.com', dob))
+
+    return sql
+
+def random_date_between(start, end):
+    diff = end - start
+    int_diff = (diff.days * 24 * 60 * 60) + diff.seconds
+    random_second = random.randrange(int_diff)
+    final_date = start + datetime.timedelta(seconds=random_second)
+    return final_date.strftime('%Y-%m-%d %H:%M:%S')
+
+        
+if __name__ == '__main__':
+    main()

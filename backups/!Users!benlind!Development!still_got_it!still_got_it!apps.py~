@@ -1,0 +1,5 @@
+from django.apps import AppConfig
+
+
+class StillGotItConfig(AppConfig):
+    name = 'still_got_it'

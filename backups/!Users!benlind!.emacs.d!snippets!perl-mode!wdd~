@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Warn with Data::Dumper
+# key: wdd
+# --
+warn Data::Dumper($0);

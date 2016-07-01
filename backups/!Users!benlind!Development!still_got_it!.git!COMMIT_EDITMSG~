@@ -1,0 +1,26 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#	modified:   db.sqlite3
+#	modified:   reminder_entries/__pycache__/views.cpython-35.pyc
+#	deleted:    reminder_entries/templates/reminder_entries/detail.html
+#	deleted:    reminder_entries/templates/reminder_entries/index.html
+#	modified:   reminder_entries/views.py
+#	modified:   still_got_it/__pycache__/settings.cpython-35.pyc
+#	modified:   still_got_it/__pycache__/urls.cpython-35.pyc
+#	modified:   still_got_it/__pycache__/views.cpython-35.pyc
+#	modified:   still_got_it/settings.py
+#	modified:   still_got_it/static/still_got_it/main.css
+#	deleted:    still_got_it/templates/still_got_it/base.html
+#	deleted:    still_got_it/templates/still_got_it/home.html
+#	modified:   still_got_it/urls.py
+#	modified:   still_got_it/views.py
+#
+# Untracked files:
+#	reminder_entries/templates/
+#	still_got_it/__pycache__/forms.cpython-35.pyc
+#	still_got_it/forms.py
+#	still_got_it/templates/
+#

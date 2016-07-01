@@ -1,0 +1,19 @@
+from django import template
+from django.core.urlresolvers import reverse
+
+import logging
+logger = logging.getLogger(__name__)
+
+register = template.Library()
+
+@register.simple_tag
+def navactive(request, urls):
+    logger.warn(urls)
+    logger.warn(reverse('entries'))
+    # url_location = reverse(urls)
+    # logger.warn(reverse(url) for url in urls.split())
+    # list_urls = ( reverse(url) for url in urls.split() )
+    # if request.path in list_urls:
+    if request.path == url_location:
+        return "active"
+    return ""
