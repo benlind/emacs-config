@@ -7,3 +7,4 @@ backups/*
 ido.last
 tramp
 smex-items
+elpa/*
