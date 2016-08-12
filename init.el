@@ -14,7 +14,6 @@
 
 ;; Load modules (these correspond to filenames in the lisp directory)
 (load "web-mode")
-(load "autopair")
 (load "auto-indent-mode")
 (load "smex")
 (load "popup")              ;; for auto-complete
@@ -24,14 +23,35 @@
 (load "yasnippet")
 (load "multiple-cursors")
 (load "buffer-move")
+;; (load "autopair")
+(load "yaml-mode")
 
 
 
 ;;; THEMES
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
-(load-theme 'solarized t)
-(set-terminal-parameter nil 'background-mode 'dark) ; comment out for light
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized/")
+;; (load-theme 'solarized t)
+;; (set-terminal-parameter nil 'background-mode 'dark) ; comment out for light solarized
+(load-theme 'zenburn t)
+
+
+;;;; Customize theme colors
+
+(global-hl-line-mode 1)       ;; Turn on highlighting current line
+(set-face-background 'hl-line "#272727")  ;; set line highlight color
+(set-face-foreground 'highlight nil)
+(set-face-attribute 'region nil :background "#4e4e4e")  ;; region highlight color
+(set-face-attribute 'lazy-highlight nil :background "yellow")
+(set-face-attribute 'lazy-highlight nil :foreground "#272727")
+(setq lazy-highlight-initial-delay 0)
+
+;; Show matching parens automatically
+(show-paren-mode 1)
+;; (set-face-foreground 'show-paren-match "#8da5b1")
+;; (set-face-background 'show-paren-match "#203742")
+;; (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
 
 
 
@@ -43,22 +63,23 @@
 (setq sgml-basic-offset 4)
 
 (setq indent-line-function 'insert-tab)
-(define-key global-map (kbd "RET") 'newline-and-indent)
 
 (require 'auto-indent-mode)
 (auto-indent-global-mode)
 (setq auto-indent-newline-function 'newline-and-indent) ;; don't indent prev line on RET
 ;; The following variable defines what <delete> does at the beginning of a line.
-;; I would like it to just remove the previous newline, but currently it removes
+;; I would lik  e it to just remove the previous newline, but currently it removes
 ;; all newlines. I created an issue for this here:
 ;; https://github.com/mattfidler/auto-indent-mode.el/issues/47
 (setq auto-indent-backward-delete-char-behavior 'all)
 
-;; Disable auto-indent for certain modes (could cause emacs to freeze)
-(add-hook 'yaml-mode-hook 'my-yaml-mode-hook)
-(defun my-yaml-mode-hook ()
-  (auto-indent-mode 0)
-  (define-key yaml-mode-map "\C-m" 'newline-and-indent))
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.conf\\'"  . yaml-mode))
+;; (add-hook 'yaml-mode-hook 'my-yaml-mode-hook)
+;; (defun my-yaml-mode-hook ()
+;;   (auto-indent-mode 0)
+;;   (define-key yaml-mode-map "\C-m" 'newline-and-indent))
 
 ;; Indent the whole buffer
 (defun iwb ()
@@ -80,6 +101,7 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
+ '(custom-safe-themes (quote ("06b2849748590f7f991bf0aaaea96611bb3a6982cad8b1e3fc707055b96d64ca" default)))
  '(text-mode-hook (quote (text-mode-hook-identify))))
 
 ;; Create the autosave dir if necessary, since emacs won't.
@@ -92,6 +114,17 @@
 
 ;; Syntax highlighting for different filetypes
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
+
+;; Use CPerlMode (improves indentation)
+(fset 'perl-mode 'cperl-mode)
+(setq cperl-indent-level 4
+      cperl-close-paren-offset -4
+      cperl-continued-statement-offset 4
+      cperl-indent-parens-as-block t
+      cperl-tab-always-indent t
+      cperl-invalid-face (quote off))
+(add-hook 'cperl-mode-hook   ;; prevent extra right-brace on left-brace, like: {}}
+          (lambda () (local-unset-key (kbd "{"))))
 
 ;; Don't auto-wrap long lines
 (auto-fill-mode -1)
@@ -146,34 +179,35 @@
 (require 'ido-ubiquitous)
 (ido-ubiquitous-mode 1)
 
-;; Show matching parens automatically
-(show-paren-mode 1)
-(set-face-foreground 'show-paren-match "#8da5b1")
-(set-face-background 'show-paren-match "#203742")
-;; (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
-
-;; ;; Auto-closing of parens and quotes
-;; (electric-pair-mode 1)
-
 ;; On alarm (like pressing C-g), only flash top and bottom of screen
 (setq visible-bell 'top-bottom)
 
-;; Auto-close braces and quotes, and auto indent on RET inside braces
-(require 'autopair)
-(autopair-global-mode)  ;; enable autopair in all buffers
-(setq autopair-blink nil)
 
-;; Disable autopair in minibuffer
-(defun my-minibuffer-setup ()
-  (autopair-mode -1))
-(add-hook 'minibuffer-setup-hook 'my-minibuffer-setup)
-;; (defvar autopair-dont-pair `(:string (?\") :comment (?{))) ; ?\" doesn't seem to translate to double quote
+;; Auto-paring
+(electric-pair-mode)
+;; ;; Auto-close braces and quotes, and auto indent on RET inside braces
+;; (require 'autopair)
+;; (autopair-global-mode)  ;; enable autopair in all buffers
+;; (setq autopair-blink nil)
+
+;; ;; Disable autopair in minibuffer
+;; (defun my-minibuffer-setup ()
+;;   (autopair-mode -1))
+;; (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup)
+;; ;; (defvar autopair-dont-pair `(:string (?\") :comment (?{))) ; ?\" doesn't seem to translate to double quote
+
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
 
 ;; Web mode! Do cool stuff with template files.
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html\\'"      . web-mode))
-(add-to-list 'auto-mode-alist '("\\.js\\'"        . web-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'"   . web-mode))
@@ -194,14 +228,14 @@
   (setq web-mode-enable-css-colorization t)
   (setq web-mode-enable-current-element-highlight t)
 )
-
+(add-hook 'web-mode-hook 'my-web-mode-hook)
 
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; Make all "yes or no" prompts show "y or n" instead
 (menu-bar-mode 0)             ;; Turn off menu
 (delete-selection-mode 1)     ;; Make Delete key delete selection; also, typing over selection replaces it
-(global-hl-line-mode 1)       ;; Turn on highlighting current line
 (column-number-mode 1)        ;; Show current point position in status bar
+(add-hook 'before-save-hook 'delete-trailing-whitespace) ;; remove trailing whitespace on save
 
 ;; (setq scroll-conservatively 10000)  ;; set scrolling to always be a line at a time
 
@@ -222,11 +256,13 @@
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))  ;; scroll one line at a time
 )
 
+
 ;; Snippets!
 (require 'yasnippet) ;; WARNING: This seems to slow down load time significantly
 (setq yas-snippet-dirs
       '("~/.emacs.d/snippets"))
 (yas-global-mode 1)
+
 
 ;; Multiple cursors (see below for key bindings)
 (require 'multiple-cursors)
@@ -316,6 +352,16 @@
 (define-key my-keys-mode-map (kbd "C-c <tab>")  'my-indent-closing-hash)
 (define-key my-keys-mode-map (kbd "C-c \\")     'my-indent-closing-hash)
 (define-key my-keys-mode-map (kbd "C-c C-\\")   'my-indent-closing-hash)
+(define-key my-keys-mode-map (kbd "<M-RET>")    'my-open-new-line-unindented)
+(define-key my-keys-mode-map (kbd "C-y")        'my-yank)
+(define-key my-keys-mode-map (kbd "<RET>")      'newline-dwim)
+
+(defun my-open-new-line-unindented ()
+  "Moves to a new, left-indented line below the current line."
+  (interactive)
+  (open-line 1)
+  (next-line 1)
+  (move-beginning-of-line nil))
 
 (defun my-unindent-region (N)
   (interactive "p")
@@ -326,6 +372,7 @@
 
 (defun my-duplicate-current-line-or-region (arg)
   "Duplicates the current line or region ARG times.
+
 If there's no region, the current line will be duplicated. However, if
 there's a region, all lines that region covers will be duplicated."
   (interactive "p")
@@ -421,6 +468,52 @@ With argument, do this that many times.
   (shift-left 4)
   (move-end-of-line nil))
 
+(defun my-yank ()
+  "Yank, indent, and trim trailing whitespace"
+  (interactive)
+  (yank)
+  (delete-trailing-whitespace)
+  ;; (indent-region (region-beginning) (region-end))
+  )
+
+
+;;;;; Customize newline function
+(defun newline-dwim ()
+  (interactive)
+  (run-hooks 'newline-hooks))
+
+(add-hook 'newline-hooks #'basic-newline)
+(add-hook 'newline-hooks #'extra-newline-inside-braces)
+
+(defun basic-newline ()
+  (newline-and-indent))
+
+;; Auto expand when pressing enter between braces.
+;;
+;; Example:
+;;
+;; If you start with:
+;;
+;;     function() {|} <RET>
+;;
+;; You should end with:
+;;
+;;     function() {
+;;         |
+;;     }
+;;
+;; TODO: make it so that you can go from position 2 to 1 by pressing delete
+(defun extra-newline-inside-braces ()
+  (let ((break-open-pair (or (and (looking-back "{") (looking-at "}"))
+                             (and (looking-back ">") (looking-at "<"))
+                             (and (looking-back "(") (looking-at ")"))
+                             (and (looking-back "\\[") (looking-at "\\]")))))
+    (when break-open-pair
+      (save-excursion (basic-newline))
+      (indent-for-tab-command))))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                          IDEAS FOR NEW FUNCTIONS                           ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -430,4 +523,3 @@ With argument, do this that many times.
 ;; the word under the point is selected. If C-> is pressed again, the selection
 ;; is EXPANDED to the right by one word. If C-< is pressed, the same things
 ;; happen but this time expansion happens to the left.
-
