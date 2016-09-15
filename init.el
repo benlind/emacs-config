@@ -63,16 +63,20 @@
 (setq-default tab-width 4)
 (setq sgml-basic-offset 4)
 
+(add-hook 'java-mode-hook (lambda ()
+                            (setq c-basic-offset 4
+                                  tab-width 4)))
+
 (setq indent-line-function 'insert-tab)
 
-(require 'auto-indent-mode)
-(auto-indent-global-mode)
-(setq auto-indent-newline-function 'newline-and-indent) ;; don't indent prev line on RET
-;; The following variable defines what <delete> does at the beginning of a line.
-;; I would lik  e it to just remove the previous newline, but currently it removes
-;; all newlines. I created an issue for this here:
-;; https://github.com/mattfidler/auto-indent-mode.el/issues/47
-(setq auto-indent-backward-delete-char-behavior 'all)
+;; (require 'auto-indent-mode)
+;; (auto-indent-global-mode)
+;; (setq auto-indent-newline-function 'newline-and-indent) ;; don't indent prev line on RET
+;; ;; The following variable defines what <delete> does at the beginning of a line.
+;; ;; I would lik  e it to just remove the previous newline, but currently it removes
+;; ;; all newlines. I created an issue for this here:
+;; ;; https://github.com/mattfidler/auto-indent-mode.el/issues/47
+;; (setq auto-indent-backward-delete-char-behavior 'all)
 
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-mode))
@@ -209,6 +213,7 @@
 ;; Web mode! Do cool stuff with template files.
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html\\'"      . web-mode))
+(add-to-list 'auto-mode-alist '("\\.php\\'"      . web-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'"   . web-mode))

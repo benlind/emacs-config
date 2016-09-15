@@ -1,0 +1,10 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("The Pool Specialist"
+ (filename . "/benlind@byzain.com@ftp.byzain.com:/thepoolspecialist.com/wp-content/themes/the-pool-specialist/front-page.php")
+ (front-context-string . "<?php\n$GLOBALS[ ")
+ (rear-context-string)
+ (position . 1))
+)
