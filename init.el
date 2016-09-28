@@ -26,6 +26,7 @@
 ;; (load "autopair")
 (load "yaml-mode")
 (load "markdown-mode")
+(load "groovy-mode")
 
 
 
@@ -62,10 +63,8 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq sgml-basic-offset 4)
-
-(add-hook 'java-mode-hook (lambda ()
-                            (setq c-basic-offset 4
-                                  tab-width 4)))
+(setq c-basic-offset 4)
+(setq tab-width 4)
 
 (setq indent-line-function 'insert-tab)
 
@@ -241,7 +240,7 @@
 (menu-bar-mode 0)             ;; Turn off menu
 (delete-selection-mode 1)     ;; Make Delete key delete selection; also, typing over selection replaces it
 (column-number-mode 1)        ;; Show current point position in status bar
-(add-hook 'before-save-hook 'delete-trailing-whitespace) ;; remove trailing whitespace on save
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace) ;; remove trailing whitespace on save
 
 ;; (setq scroll-conservatively 10000)  ;; set scrolling to always be a line at a time
 
@@ -286,6 +285,11 @@
   "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;; Groovy (Gradle)
+(autoload 'groovy-mode "groovy-mode"
+  "Major mode for editing Groovy files" t)
+(add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -521,7 +525,7 @@ With argument, do this that many times.
                              (and (looking-back "(") (looking-at ")"))
                              (and (looking-back "\\[") (looking-at "\\]")))))
     (when break-open-pair
-      (save-excursion (basic-newline))
+      ;; (save-excursion (basic-newline))
       (indent-for-tab-command))))
 
 
