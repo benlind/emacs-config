@@ -168,7 +168,7 @@
     ad-do-it))
 
 ;; ;; 80 Character Fill Column Indicator
-;; (require 'fill-column-indicator)
+(require 'fill-column-indicator)
 ;; (setq fci-rule-character-color "#464646")
 ;; (add-hook 'c-mode-hook 'fci-mode) ;; turn on fci-mode for C files
 
@@ -503,8 +503,8 @@ With argument, do this that many times.
   "Yank, indent, and trim trailing whitespace"
   (interactive)
   (yank)
-  (delete-trailing-whitespace)
-  ;; (indent-region (region-beginning) (region-end))
+  (delete-trailing-whitespace (region-beginning) (region-end))
+  (indent-region (region-beginning) (region-end))
   )
 
 
