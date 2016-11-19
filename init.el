@@ -27,6 +27,8 @@
 (load "yaml-mode")
 (load "markdown-mode")
 (load "groovy-mode")
+(load "dtrt-indent")
+(load "smart-tabs-mode")
 
 
 
@@ -76,6 +78,19 @@
 ;; ;; all newlines. I created an issue for this here:
 ;; ;; https://github.com/mattfidler/auto-indent-mode.el/issues/47
 ;; (setq auto-indent-backward-delete-char-behavior 'all)
+
+;; Automatically match indentation style in existing files
+(autoload 'dtrt-indent-mode "dtrt-indent" "Adapt to foreign indentation offsets" t)
+(add-hook 'c-mode-common-hook 'dtrt-indent-mode)
+
+;; Enable smart tabs
+(autoload 'smart-tabs-mode "smart-tabs-mode"
+  "Intelligently indent with tabs, align with spaces!")
+(autoload 'smart-tabs-mode-enable "smart-tabs-mode")
+(autoload 'smart-tabs-advice "smart-tabs-mode")
+(autoload 'smart-tabs-insinuate "smart-tabs-mode")
+(smart-tabs-insinuate 'c 'c++ 'java 'javascript 'cperl 'python
+                      'ruby 'nxml)
 
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-mode))
