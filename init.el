@@ -535,10 +535,10 @@ With argument, do this that many times.
 ;;
 ;; TODO: make it so that you can go from position 2 to 1 by pressing delete
 (defun extra-newline-inside-braces ()
-  (let ((break-open-pair (or (and (looking-back "{") (looking-at "}"))
-                             (and (looking-back ">") (looking-at "<"))
-                             (and (looking-back "(") (looking-at ")"))
-                             (and (looking-back "\\[") (looking-at "\\]")))))
+  (let ((break-open-pair (or (and (looking-back "{" 1) (looking-at "}"))
+                             (and (looking-back ">" 1) (looking-at "<"))
+                             (and (looking-back "(" 1) (looking-at ")"))
+                             (and (looking-back "\\[" 1) (looking-at "\\]")))))
     (when break-open-pair
       ;; (save-excursion (basic-newline))
       (indent-for-tab-command))))
