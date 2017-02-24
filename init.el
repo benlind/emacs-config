@@ -135,6 +135,8 @@
  '(custom-safe-themes (quote ("06b2849748590f7f991bf0aaaea96611bb3a6982cad8b1e3fc707055b96d64ca" default)))
  '(text-mode-hook (quote (text-mode-hook-identify))))
 
+(setq create-lockfiles nil)
+
 ;; Create the autosave dir if necessary, since emacs won't.
 (make-directory "~/.emacs.d/autosaves/" t)
 (make-directory "~/.emacs.d/backups/" t)
@@ -157,12 +159,16 @@
 (add-hook 'cperl-mode-hook   ;; prevent extra right-brace on left-brace, like: {}}
           (lambda () (local-unset-key (kbd "{"))))
 
-;; Don't auto-wrap long lines
-(auto-fill-mode -1)
-(remove-hook 'text-mode-hook #'turn-on-auto-fill)
-(remove-hook 'html-mode-hook #'turn-on-auto-fill)
-(setq auto-fill-mode -1)
-(auto-fill-mode -1)
+;; Only wrap lines in comments
+(defun comment-auto-fill ()
+  (setq-local comment-auto-fill-only-comments t)
+  (auto-fill-mode 1))
+(add-hook 'c-mode-common-hook 'comment-auto-fill)
+(add-hook 'cperl-mode-hook 'comment-auto-fill)
+(add-hook 'lisp-mode-hook 'comment-auto-fill)
+
+;; Wrap everything in text mode
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; Set fill column to 80 chars (for M-q)
 (setq-default fill-column 80)
@@ -180,7 +186,7 @@
     ad-do-it))
 
 ;; ;; 80 Character Fill Column Indicator
-(require 'fill-column-indicator)
+;; (require 'fill-column-indicator)
 ;; (setq fci-rule-character-color "#464646")
 ;; (add-hook 'c-mode-hook 'fci-mode) ;; turn on fci-mode for C files
 
@@ -196,9 +202,6 @@
 (require 'auto-complete)
 (global-auto-complete-mode t)
 (ac-linum-workaround) ;; Stop flickering line numbers for auto-complete dropdown
-
-;; ;; auto wrap paragraphs to fill column width in text mode
-;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; IDO vertical mode: for M-x, use vertical auto-complete list
 (require 'ido-vertical-mode)
