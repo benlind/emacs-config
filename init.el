@@ -1,3 +1,15 @@
+;;;;; TODO (some things I'd like to get emacs to do at some point)
+;; Note: some of these are from Prelude
+;; - C-c s: swap active buffers
+;; - C-x \: align regexp
+;; - C-c I: open init file
+;; - Use a smarter auto-complete (that doesn't just make predictions based on
+;;   what's in the currently opened buffers; look into Helm)
+;;
+;; Look at these example init files for more ideas:
+;; https://github.com/bbatsov/emacs.d/blob/master/init.el
+
+
 ;;; PACKAGE MANAGERS
 ;; Load MELPA for loading packages
 ;; (http://ergoemacs.org/emacs/emacs_package_system.html)
