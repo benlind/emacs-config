@@ -238,6 +238,19 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; Show the current function name in the header line
+(which-function-mode)
+(setq-default header-line-format
+                            '((which-func-mode ("" which-func-format " "))))
+(setq mode-line-misc-info
+                  ;; We remove Which Function Mode from the mode line, because it's mostly
+                  ;; invisible here anyway.
+                  (assq-delete-all 'which-func-mode mode-line-misc-info))
+(setq which-func-unknown "")
+
+;; Disable vc-git to improve startup
+(setq vc-handled-backends ())
+
 
 ;; Web mode! Do cool stuff with template files.
 (require 'web-mode)
