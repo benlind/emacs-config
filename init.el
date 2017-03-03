@@ -218,7 +218,8 @@
 
 
 ;; Auto-paring
-(electric-pair-mode)
+;; (electric-pair-mode)
+
 ;; ;; Auto-close braces and quotes, and auto indent on RET inside braces
 ;; (require 'autopair)
 ;; (autopair-global-mode)  ;; enable autopair in all buffers
