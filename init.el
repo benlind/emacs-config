@@ -335,6 +335,14 @@
   "Major mode for editing Groovy files" t)
 (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
 
+;; Check spelling in strings and comments or everywhere (if in text mode)
+;;
+;; Note: to add words to the dictionary, execute `M-x ispell-region` and press
+;; `i` when over the word you want to add. Press `x` to exit. Or use `M-x
+;; ispell-word` so you don't have to select a region first.
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                              MY KEY BINDINGS                                ;;
@@ -394,7 +402,8 @@
 (define-key my-keys-mode-map (kbd "C-c d")      'my-duplicate-current-line-or-region)
 (define-key my-keys-mode-map (kbd "C-c n")      'my-duplicate-current-line-or-region)
 (define-key my-keys-mode-map (kbd "C-c C-n")    'my-duplicate-current-line-or-region)
-(define-key my-keys-mode-map (kbd "C-c C-a")    'align) ;; auto align Perl hashes and other things
+(define-key my-keys-mode-map (kbd "C-c C-a")    'align)         ;; auto align Perl hashes and other things
+(define-key my-keys-mode-map (kbd "C-c C-A")    'align-regexp)  ;; align based on entered regexp
 (define-key my-keys-mode-map (kbd "<mouse-4>")  'scroll-down-line)
 (define-key my-keys-mode-map (kbd "<mouse-5>")  'scroll-up-line)
 (define-key my-keys-mode-map (kbd "M-n")        'scroll-up-line)
@@ -415,6 +424,9 @@
 (define-key my-keys-mode-map (kbd "<M-RET>")    'my-open-new-line-unindented)
 (define-key my-keys-mode-map (kbd "C-y")        'my-yank)
 (define-key my-keys-mode-map (kbd "<RET>")      'newline-dwim)
+
+(define-key isearch-mode-map (kbd "<M-RET>")    'isearch-exit-mark-match)
+
 
 (defun my-open-new-line-unindented ()
   "Moves to a new, left-indented line below the current line."
@@ -533,8 +545,7 @@ With argument, do this that many times.
   (interactive)
   (yank)
   (delete-trailing-whitespace (region-beginning) (region-end))
-  (indent-region (region-beginning) (region-end))
-  )
+  (indent-region (region-beginning) (region-end)))
 
 (defun smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
@@ -562,6 +573,13 @@ point reaches the beginning or end of the buffer, stop there."
 ;; remap C-a to `smarter-move-beginning-of-line'
 (global-set-key [remap move-beginning-of-line]
                 'smarter-move-beginning-of-line)
+
+(defun isearch-exit-mark-match ()
+  "Exit isearch, but keep the current match selected"
+  (interactive)
+  (isearch-exit)
+  (push-mark isearch-other-end)
+  (activate-mark))
 
 
 ;;;;; Customize newline function
