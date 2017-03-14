@@ -154,6 +154,12 @@
   (push-mark isearch-other-end)
   (activate-mark))
 
+(defun goto-paragraph (arg)
+  "Go to paragrah ARG."
+  (interactive "nGoto paragraph: ")
+  (goto-char (point-min))
+  (forward-paragraph arg))
+
 
 ;;; CUSTOMIZE NEWLINE FUNCTION
 
