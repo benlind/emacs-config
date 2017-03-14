@@ -36,8 +36,8 @@
 ;; ;; Enable lazy highlighting (maintain match highlights after exiting isearch)
 ;; (setq lazy-highlight-cleanup nil)
 ;; (setq lazy-highlight-initial-delay 0)
-;; (set-face-attribute  'lazy-highlight nil :background "yellow")
-;; (set-face-attribute  'lazy-highlight nil :foreground "#272727")
+(set-face-attribute  'lazy-highlight nil :background "yellow")
+(set-face-attribute  'lazy-highlight nil :foreground "#272727")
 
 ;; Set fill column indicator color
 ;; (setq fci-rule-character-color "#464646")
