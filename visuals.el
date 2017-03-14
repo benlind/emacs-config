@@ -18,11 +18,14 @@
 
 ;; Highlight the current line
 (global-hl-line-mode 1)
-(set-face-background 'hl-line "#272727")
+(set-face-background 'hl-line "#333")
 (set-face-foreground 'highlight nil)
 
 ;; Set the region highlight color
 (set-face-attribute 'region nil :background "#4e4e4e")
+
+;; Set the line number color
+(set-face-foreground 'linum "#444")
 
 ;; Highlight matching pairs (parens, braces, etc.)
 (show-paren-mode 1)
