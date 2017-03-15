@@ -85,6 +85,10 @@
 (define-key my-keys-mode-map (kbd "<M-RET>")    'my-open-new-line-unindented)
 (define-key my-keys-mode-map (kbd "C-y")        'my-yank)
 (define-key my-keys-mode-map (kbd "<RET>")      'newline-dwim)
+(define-key my-keys-mode-map (kbd "C-c C-l")    'goto-line)
+(define-key my-keys-mode-map (kbd "C-c l")      'goto-line)
+(define-key my-keys-mode-map (kbd "C-x C-l")    'linum-mode)  ; toggle line numbers
+(define-key my-keys-mode-map (kbd "C-x l")      'linum-mode)
 
 (define-key isearch-mode-map (kbd "<M-RET>")    'isearch-exit-mark-match)
 
