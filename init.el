@@ -15,6 +15,8 @@
 ;; - "Paste mode": add a keybinding that disables auto-indentation and anything
 ;;   else that might slow down pasting (yasnippet?) so that you can quickly
 ;;   paste. The same keybinding should re-enable it afterwards. Maybe C-c v?
+;; - "Copy mode": add a keybinding that turns off line numbers (linum-mode) and
+;;   closes all buffers besides the current one.
 ;;
 ;; Look at these example init files for more ideas:
 ;; https://github.com/bbatsov/emacs.d/blob/master/init.el
