@@ -167,11 +167,21 @@
   (interactive)
   (run-hooks 'newline-hooks))
 
-(add-hook 'newline-hooks #'basic-newline)
+(add-hook 'newline-hooks #'newline-maybe-indent)
 (add-hook 'newline-hooks #'extra-newline-inside-braces)
 
-(defun basic-newline ()
-  (newline-and-indent))
+(defun newline-maybe-indent ()
+  "Add a newline and auto-indent it if we're in certain modes."
+  (if (derived-mode-p
+       ;; List of modes to NOT auto-indent in:
+       'text-mode
+       'sql-mode)
+
+      ;; If we're in one of the above modes, DO NOT auto-indent
+      (newline)
+
+    ;; Otherwise (for all other modes), DO auto-indent
+    (newline-and-indent)))
 
 ;; Auto expand when pressing enter between braces.
 ;;
