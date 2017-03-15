@@ -12,6 +12,9 @@
 ;; - C-c I: open init file
 ;; - Use a smarter auto-complete (that doesn't just make predictions based on
 ;;   what's in the currently opened buffers; look into Helm)
+;; - "Paste mode": add a keybinding that disables auto-indentation and anything
+;;   else that might slow down pasting (yasnippet?) so that you can quickly
+;;   paste. The same keybinding should re-enable it afterwards. Maybe C-c v?
 ;;
 ;; Look at these example init files for more ideas:
 ;; https://github.com/bbatsov/emacs.d/blob/master/init.el
