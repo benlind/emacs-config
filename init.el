@@ -383,6 +383,8 @@
 (define-key my-keys-mode-map (kbd "C-c <tab>")  'my-indent-closing-hash)
 (define-key my-keys-mode-map (kbd "C-c \\")     'my-indent-closing-hash)
 (define-key my-keys-mode-map (kbd "C-c C-\\")   'my-indent-closing-hash)
+(define-key my-keys-mode-map (kbd "C-c |")      'my-indent-function-parameters)
+(define-key my-keys-mode-map (kbd "C-c C-|")    'my-indent-function-parameters)
 (define-key my-keys-mode-map (kbd "<M-RET>")    'my-open-new-line-unindented)
 (define-key my-keys-mode-map (kbd "C-y")        'my-yank)
 (define-key my-keys-mode-map (kbd "<RET>")      'newline-dwim)
@@ -497,6 +499,15 @@ With argument, do this that many times.
   (kill-line 0)         ;; kill line backwards
   (indent-relative)     ;; indent to first non-whitespace char of prev line
   (shift-left 4)
+  (move-end-of-line nil))
+
+(defun my-indent-function-parameters ()
+  "Correctly indent function parameters on new lines"
+  (interactive)
+  (back-to-indentation) ;; move to first non-whitespace character on line
+  (kill-line 0)         ;; kill line backwards
+  (indent-relative)     ;; indent to first non-whitespace char of prev line
+  (shift-right 4)
   (move-end-of-line nil))
 
 (defun my-yank ()
