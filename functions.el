@@ -185,6 +185,7 @@
   "Add a newline and auto-indent it if we're in certain modes."
   (if (derived-mode-p
        ;; List of modes to NOT auto-indent in:
+       'fundamental-mode
        'text-mode
        'sql-mode)
 
