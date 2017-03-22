@@ -128,6 +128,15 @@
   (shift-left 4)
   (move-end-of-line nil))
 
+(defun my-indent-function-parameters ()
+  "Correctly indent function parameters on new lines"
+  (interactive)
+  (back-to-indentation) ;; move to first non-whitespace character on line
+  (kill-line 0)         ;; kill line backwards
+  (indent-relative)     ;; indent to first non-whitespace char of prev line
+  (shift-right 4)
+  (move-end-of-line nil))
+
 (defun my-yank ()
   "Yank, indent, and trim trailing whitespace"
   (interactive)

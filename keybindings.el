@@ -82,6 +82,8 @@
 (define-key my-keys-mode-map (kbd "C-c <tab>")     'my-indent-closing-hash)
 (define-key my-keys-mode-map (kbd "C-c \\")        'my-indent-closing-hash)
 (define-key my-keys-mode-map (kbd "C-c C-\\")      'my-indent-closing-hash)
+(define-key my-keys-mode-map (kbd "C-c |")         'my-indent-function-parameters)
+(define-key my-keys-mode-map (kbd "C-c C-|")       'my-indent-function-parameters)
 (define-key my-keys-mode-map (kbd "<M-RET>")       'my-open-new-line-unindented)
 (define-key my-keys-mode-map (kbd "C-y")           'my-yank)
 (define-key my-keys-mode-map (kbd "<RET>")         'newline-dwim)
