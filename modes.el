@@ -48,6 +48,28 @@
 ;; Autofill everything in text mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
+;; Don't wrap horizontal rules (any sequence of repeating non-alphanumeric
+;; characters that are on their own line). Example:
+;; ----------
+;; You should be able to `fill-paragraph` these two comment blocks separately
+;; without having them merge.
+;;
+;; See http://emacs.stackexchange.com/a/31609/12866
+;;
+;; I adapted the answer above to allow for not wrapping over rules within
+;; comments. This is kind of hacky, but it works for most situations. Also,
+;; writing emacs regex in strings is ANNOYING because you have to double-escape
+;; all escaped characters (http://stackoverflow.com/q/538842/1054633).
+;;
+;; The situation where my rule-in-comment hack doesn't work is if you are
+;; wrapping comments that are placed after code, like so:
+;;
+;;     my $x = "hot";          # This comment, if wrapped...
+;;     my $y = "diggity";      # ---
+;;     my $z = "dog";          # ...will be run together with the rule.
+(setq paragraph-start "^\s*[^[:alnum:]]\\{0,2\\}\s*\\([^[:alnum:]]\\)\\1+\n\\|\f\\|[   ]*$")
+(setq paragraph-separate "^\s*[^[:alnum:]]\\{0,2\\}\s*\\([^[:alnum:]]\\)\\1+\n\\|[  \f]*$")
+
 
 ;;; LINE NUMBERS
 
