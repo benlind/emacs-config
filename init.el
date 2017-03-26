@@ -27,6 +27,9 @@
 ;;; LOAD THIRD-PARTY MODULES
 
 ;; Set elisp directories
+
+(package-initialize)  ;; added by Package.el (and it will ALWAYS be added....)
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'load-path "~/.emacs.d/lisp/multiple-cursors")
 
