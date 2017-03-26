@@ -65,36 +65,47 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-(defun comment-or-uncomment-region-or-line ()
+
+(defun comment-or-uncomment-region-or-line()
   "Comments or uncomments the region or the current line if
    there's no active region."
   (interactive)
   (let (beg end)
     (if (region-active-p)
-        (setq beg (region-beginning) end (region-end))
-      (setq beg (line-beginning-position) end (line-end-position)))
+        (progn
+          (setq beg (region-beginning) end (region-end))
+          (save-excursion
+            (setq beg (progn (goto-char beg) (line-beginning-position))
+                  end (progn (goto-char end) (line-end-position)))))
+      (setq beg (line-beginning-position)
+            end (line-end-position)))
     (comment-or-uncomment-region beg end)))
 
-(defun shift-text (distance)
-  (if (use-region-p)
-      (let ((mark (mark)))
-        (save-excursion
-          (indent-rigidly (region-beginning)
-                          (region-end)
-                          distance)
-          (push-mark mark t t)
-          (setq deactivate-mark nil)))
-    (indent-rigidly (line-beginning-position)
-                    (line-end-position)
-                    distance)))
+(defun shift-text(distance)
+  "Shifts the current line or region by the passed distance. The
+   distance can be negative."
+  ; TODO: restore mark after shift (https://superuser.com/a/455404/536749)
+  (interactive)
+  (let (beg end)
+    (if (region-active-p)
+        (progn
+          (setq beg (region-beginning) end (region-end))
+          (save-excursion
+            (setq beg (progn (goto-char beg) (line-beginning-position))
+                  end (progn (goto-char end) (line-end-position)))))
+      (setq beg (line-beginning-position)
+            end (line-end-position)))
+    (indent-rigidly beg end distance)))
 
-(defun shift-right (count)
+(defun shift-right (distance)
+  "Shifts the current line or region right by the passed distance."
   (interactive "p")
-  (shift-text count))
+  (shift-text distance))
 
-(defun shift-left (count)
+(defun shift-left (distance)
+  "Shifts the current line or region left by the passed distance."
   (interactive "p")
-  (shift-text (- count)))
+  (shift-text (- distance)))
 
 (require 'buffer-move)
 (defun swap-buffers ()
@@ -187,6 +198,7 @@
   "Add a newline and auto-indent it if we're in certain modes."
   (if (derived-mode-p
        ;; List of modes to NOT auto-indent in:
+       'fundamental-mode
        'text-mode
        'sql-mode)
 
