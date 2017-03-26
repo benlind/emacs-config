@@ -17,6 +17,8 @@
 ;;   paste. The same keybinding should re-enable it afterwards. Maybe C-c v?
 ;; - "Copy mode": add a keybinding that turns off line numbers (linum-mode) and
 ;;   closes all buffers besides the current one.
+;; - expand-region: https://github.com/magnars/expand-region.el
+;; - smartparens: https://github.com/Fuco1/smartparens
 ;;
 ;; Look at these example init files for more ideas:
 ;; https://github.com/bbatsov/emacs.d/blob/master/init.el
