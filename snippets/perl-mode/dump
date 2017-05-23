@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Warn with Data::Dumper, maxdepth 3
+# key: dump
+# --
+use Data::Dumper; $Data::Dumper::Maxdepth = 3;
+warn "\n" . '$1:' . "\n";
+warn Dumper(${1:$var});$0
