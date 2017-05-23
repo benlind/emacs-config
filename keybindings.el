@@ -5,94 +5,68 @@
 
 ;;; SET UP MY CUSTOM KEYS MODE
 
-;; My minor keys mode, so that  my key bindings have the highest priority
-(defvar my-keys-mode-map (make-sparse-keymap)
-  "Keymap while my-mode is active.")
+;; Source: http://stackoverflow.com/a/683575/1054633
 
-;;;###autoload
-(define-minor-mode my-keys-mode
+(defvar my-keys-minor-mode-map
+  (let ((map (make-sparse-keymap)))
+    ;; M-x replacement (to use the non-smex version, just use M-x):
+    (define-key map (kbd "C-c C-m")       'smex)
+    (define-key map (kbd "C-c m")         'smex)
+    (define-key map (kbd "C-x C-o")       'other-window)
+    (define-key map (kbd "C-o")           'other-window)
+    (define-key map (kbd "C-c o")         'my-split-window-focus)
+    (define-key map (kbd "C-c C-o")       'my-split-window-focus)
+    (define-key map (kbd "<backtab>")     (lambda () (interactive) (shift-left 4)))
+    (define-key map (kbd "C-c ;")         'comment-or-uncomment-region-or-line)
+    (define-key map (kbd "C-c <down>")    'my-duplicate-current-line-or-region)
+    (define-key map (kbd "C-c d")         'my-duplicate-current-line-or-region)
+    (define-key map (kbd "C-c n")         'my-duplicate-current-line-or-region)
+    (define-key map (kbd "C-c C-n")       'my-duplicate-current-line-or-region)
+    (define-key map (kbd "C-c C-a")       'align)  ; auto align Perl hashes and other things
+    (define-key map (kbd "C-c C-A")       'align-regexp)  ; align based on entered regexp
+    (define-key map (kbd "<mouse-4>")     'scroll-down-line)
+    (define-key map (kbd "<mouse-5>")     'scroll-up-line)
+    (define-key map (kbd "M-n")           'scroll-up-line)
+    (define-key map (kbd "M-p")           'scroll-down-line)
+    (define-key map (kbd "<M-backspace>") 'my-backward-delete-word-no-kill)
+    (define-key map (kbd "<M-DEL>")       'my-backward-delete-word-no-kill)
+    (define-key map (kbd "M-;")           'comment-or-uncomment-region-or-line)
+    (define-key map (kbd "C-j")           'mc/mark-next-like-this) ; multiple cursors
+    (define-key map (kbd "M-j")           'mc/mark-previous-like-this)
+    (define-key map (kbd "C-c J")         'mc/mark-all-like-this)
+    (define-key map (kbd "C-c C-j")       'mc/edit-lines)
+    (define-key map (kbd "C-c j")         'mc/edit-lines)
+    (define-key map (kbd "C-c <tab>")     'my-indent-closing-hash)
+    (define-key map (kbd "C-c \\")        'my-indent-closing-hash)
+    (define-key map (kbd "C-c C-\\")      'my-indent-closing-hash)
+    (define-key map (kbd "C-c |")         'my-indent-function-parameters)
+    (define-key map (kbd "C-c C-|")       'my-indent-function-parameters)
+    (define-key map (kbd "<M-RET>")       'my-open-new-line-unindented)
+    (define-key map (kbd "C-y")           'my-yank)
+    (define-key map (kbd "<RET>")         'newline-dwim)
+    (define-key map (kbd "C-c C-l")       'goto-line)
+    (define-key map (kbd "C-c l")         'goto-line)
+    (define-key map (kbd "C-x C-l")       'linum-mode)  ; toggle line numbers
+    (define-key map (kbd "C-x l")         'linum-mode)
+    map)
+  "my-keys-minor-mode keymap")
+
+(define-minor-mode my-keys-minor-mode
   "A minor mode so that my key settings override annoying major modes."
-  nil
-  :lighter " my-keys-mode"
-  my-keys-mode-map)
+  :init-value t
+  :lighter " my-keys")
 
-;; Source: http://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs
-(defadvice load (after give-my-keybindings-priority)
-  "Try to ensure that my keybindings always have priority."
-  (if (not (eq (car (car minor-mode-map-alist)) 'my-keys-mode))
-      (let ((mykeys (assq 'my-keys-mode minor-mode-map-alist)))
-        (assq-delete-all 'my-keys-mode minor-mode-map-alist)
-        (add-to-list 'minor-mode-map-alist mykeys))))
-(ad-activate 'load)
+(my-keys-minor-mode 1)
 
-;;;###autoload
-(defun turn-on-my-keys-mode ()
-  "Turns on my-keys-mode."
-  (interactive)
-  (my-keys-mode t))
+(defun my-minibuffer-setup-hook ()
+  (my-keys-minor-mode 0))
 
-;;;###autoload
-(defun turn-off-my-keys-mode ()
-  "Turns off my-keys-mode."
-  (interactive)
-  (my-keys-mode -1))
-
-;;;###autoload
-(define-globalized-minor-mode global-my-keys-mode my-keys-mode turn-on-my-keys-mode)
-
-;; Turn off the minor mode in the minibuffer
-(add-hook 'minibuffer-setup-hook 'turn-off-my-keys-mode)
-
-;; Turn on my keys mode
-(provide 'my-keys-mode)
-(global-my-keys-mode 1)
+(add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
 
 
-;;; DEFINE MY CUSTOM KEYBINDINGS
+;;; MISC KEYBINDINGS
 
-;; M-x replacement (to use the non-smex version, just use M-x):
-(define-key my-keys-mode-map (kbd "C-c C-m")       'smex)
-
-(define-key my-keys-mode-map (kbd "C-x C-o")       'other-window)
-(define-key my-keys-mode-map (kbd "C-o")           'other-window)
-(define-key my-keys-mode-map (kbd "C-c o")         'my-split-window-focus)
-(define-key my-keys-mode-map (kbd "C-c C-o")       'my-split-window-focus)
-(define-key my-keys-mode-map (kbd "<backtab>")     (lambda () (interactive) (shift-left 4)))
-(define-key my-keys-mode-map (kbd "C-c /")         'comment-region)
-(define-key my-keys-mode-map (kbd "C-c C-_")       'comment-region)
-(define-key my-keys-mode-map (kbd "C-c ?")         'uncomment-region)
-(define-key my-keys-mode-map (kbd "C-c <down>")    'my-duplicate-current-line-or-region)
-(define-key my-keys-mode-map (kbd "C-c d")         'my-duplicate-current-line-or-region)
-(define-key my-keys-mode-map (kbd "C-c n")         'my-duplicate-current-line-or-region)
-(define-key my-keys-mode-map (kbd "C-c C-n")       'my-duplicate-current-line-or-region)
-(define-key my-keys-mode-map (kbd "C-c C-a")       'align)  ; auto align Perl hashes and other things
-(define-key my-keys-mode-map (kbd "C-c C-A")       'align-regexp)  ; align based on entered regexp
-(define-key my-keys-mode-map (kbd "<mouse-4>")     'scroll-down-line)
-(define-key my-keys-mode-map (kbd "<mouse-5>")     'scroll-up-line)
-(define-key my-keys-mode-map (kbd "M-n")           'scroll-up-line)
-(define-key my-keys-mode-map (kbd "M-p")           'scroll-down-line)
-(define-key my-keys-mode-map (kbd "<M-backspace>") 'my-backward-delete-word-no-kill)
-(define-key my-keys-mode-map (kbd "<M-DEL>")       'my-backward-delete-word-no-kill)
-(define-key my-keys-mode-map (kbd "M-;")           'comment-or-uncomment-region-or-line)
-(define-key my-keys-mode-map (kbd "C-j")           'mc/mark-next-like-this) ; multiple cursors
-(define-key my-keys-mode-map (kbd "M-j")           'mc/mark-previous-like-this)
-(define-key my-keys-mode-map (kbd "C-c J")         'mc/mark-all-like-this)
-(define-key my-keys-mode-map (kbd "C-c C-j")       'mc/edit-lines)
-(define-key my-keys-mode-map (kbd "C-c j")         'mc/edit-lines)
-(define-key my-keys-mode-map (kbd "C-c <tab>")     'my-indent-closing-hash)
-(define-key my-keys-mode-map (kbd "C-c \\")        'my-indent-closing-hash)
-(define-key my-keys-mode-map (kbd "C-c C-\\")      'my-indent-closing-hash)
-(define-key my-keys-mode-map (kbd "C-c |")         'my-indent-function-parameters)
-(define-key my-keys-mode-map (kbd "C-c C-|")       'my-indent-function-parameters)
-(define-key my-keys-mode-map (kbd "<M-RET>")       'my-open-new-line-unindented)
-(define-key my-keys-mode-map (kbd "C-y")           'my-yank)
-(define-key my-keys-mode-map (kbd "<RET>")         'newline-dwim)
-(define-key my-keys-mode-map (kbd "C-c C-l")       'goto-line)
-(define-key my-keys-mode-map (kbd "C-c l")         'goto-line)
-(define-key my-keys-mode-map (kbd "C-x C-l")       'linum-mode)  ; toggle line numbers
-(define-key my-keys-mode-map (kbd "C-x l")         'linum-mode)
-
-(define-key isearch-mode-map (kbd "<M-RET>")       'isearch-exit-mark-match)
+(define-key isearch-mode-map (kbd "<M-RET>") 'isearch-exit-mark-match)
 
 ;; remap C-a to `smarter-move-beginning-of-line'
 (global-set-key [remap move-beginning-of-line]
