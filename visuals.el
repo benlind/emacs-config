@@ -25,7 +25,7 @@
 (set-face-attribute 'region nil :background "#4e4e4e")
 
 ;; Set the line number color
-(set-face-foreground 'linum "#444")
+;; (set-face-foreground 'linum "#444")  ;; comment this out if linum-mode is disabled
 
 ;; Highlight matching pairs (parens, braces, etc.)
 (show-paren-mode 1)
@@ -41,6 +41,23 @@
 
 ;; Set fill column indicator color
 ;; (setq fci-rule-character-color "#464646")
+
+
+;;; SPACELINE
+
+(require 'spaceline)
+(setq-default mode-line-format '("%e" (:eval (spaceline-ml-main))))
+
+(require 'spaceline-config)
+(spaceline-helm-mode 1)
+(spaceline-emacs-theme)
+
+(setq-default
+ powerline-height 24
+ powerline-default-separator 'wave
+ spaceline-flycheck-bullet "❖ %s"
+ spaceline-separator-dir-left '(right . right)
+ spaceline-separator-dir-right '(left . left))
 
 
 ;;; MISC

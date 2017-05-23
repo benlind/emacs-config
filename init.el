@@ -35,17 +35,27 @@
 (load "popup")              ;; for auto-complete
 (load "auto-complete")
 (load "ido-vertical-mode")
-(load "ido-ubiquitous")
 (load "yasnippet")
 (load "multiple-cursors")
 (load "buffer-move")
 (load "yaml-mode")
 (load "markdown-mode")
 (load "dtrt-indent")
+(load "dash")
+(load "s")
+
+(load "powerline")
+(load "powerline-separators")
+(load "powerline-themes")
+
+(load "spaceline")
+(load "spaceline-segments")
+(load "spaceline-config")
 
 ;; Disabled modules:
 ;; (load "autopair")
 ;; (load "smart-tabs-mode")
+;; (load "ido-ubiquitous")    ;; slows down emacs and is not very useful
 
 
 ;;; LOAD PERSONAL LISP FILES
@@ -77,9 +87,14 @@
 
 ;; Put autosave files (#foo#) and backup files (foo~) in ~/.emacs.d/.
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
  '(custom-safe-themes (quote ("06b2849748590f7f991bf0aaaea96611bb3a6982cad8b1e3fc707055b96d64ca" default)))
+ '(safe-local-variable-values (quote ((require-final-newline))))
  '(text-mode-hook (quote (text-mode-hook-identify))))
 
 ;; Create the autosave and backups dirs if necessary, since emacs won't.
@@ -104,6 +119,9 @@
     (let ((dir (file-name-directory filename)))
       (unless (file-exists-p dir)
         (make-directory dir)))))
+
+;; Always redraw the screen on every scroll step (smoother scrolling)
+(setq redisplay-dont-pause t)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
