@@ -73,15 +73,17 @@
 
 ;;; LINE NUMBERS
 
-;; Show line numbers
-(global-linum-mode 1)
+;; Show line numbers. Note, this can make scrolling and line navigation slow,
+;; even with the below linum-delay setting.
+;; (global-linum-mode 1)
+;; (setq linum-delay t)   ;; help prevent linum from slowing things down
 
-;; Right-align line numbers and add single space padding to right
-(defadvice linum-update-window (around linum-dynamic activate)
-  (let* ((w (length (number-to-string
-                     (count-lines (point-min) (point-max)))))
-         (linum-format (concat "%" (number-to-string w) "d ")))
-    ad-do-it))
+;; ;; Right-align line numbers and add single space padding to right
+;; (defadvice linum-update-window (around linum-dynamic activate)
+;;   (let* ((w (length (number-to-string
+;;                      (count-lines (point-min) (point-max)))))
+;;          (linum-format (concat "%" (number-to-string w) "d ")))
+;;     ad-do-it))
 
 
 ;;; FILL COLUMN
@@ -112,8 +114,8 @@
 (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)  ;; use C-n and C-p to cycle
 
 ;; IDO ubiquitous: use IDO everywhere
-(require 'ido-ubiquitous)
-(ido-ubiquitous-mode 1)
+;; (require 'ido-ubiquitous)
+;; (ido-ubiquitous-mode 1)
 
 
 ;;; AUTO-PAIRING
@@ -195,10 +197,10 @@
 
 ;;; SNIPPETS
 
-;; (require 'yasnippet) ;; WARNING: This seems to slow down load time significantly
-;; (setq yas-snippet-dirs
-;;       '("~/.emacs.d/snippets"))
-;; (yas-global-mode 1)
+(require 'yasnippet) ;; WARNING: This seems to slow down load time significantly
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"))
+(yas-global-mode 1)
 
 
 ;;; MARKDOWN
@@ -225,8 +227,8 @@
 ;; Show column number in status bar
 (setq column-number-mode t)
 
-;; Disable vc-git to improve startup time
-(setq vc-handled-backends ())
+;; Disable vc-git to improve startup time (unnecessary if using emacs daemon)
+;; (setq vc-handled-backends ())
 
 ;; Turn off top menu
 (menu-bar-mode 0)
