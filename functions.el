@@ -140,9 +140,13 @@
 (defun my-yank ()
   "Yank, indent, and trim trailing whitespace"
   (interactive)
-  (yank)
-  (delete-trailing-whitespace (region-beginning) (region-end))
-  (indent-region (region-beginning) (region-end)))
+  (if (derived-mode-p 'web-mode)
+      (progn
+        (yank)
+        (web-mode))
+    (yank)
+    (delete-trailing-whitespace (region-beginning) (region-end))
+    (indent-region (region-beginning) (region-end))))
 
 (defun smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.

@@ -165,6 +165,10 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'"    . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tt\\'"        . web-mode))
 
+;; Make PHP use single-line comments everywhere
+(setq-default web-mode-comment-formats (remove '("php" . "/*") web-mode-comment-formats))
+(add-to-list 'web-mode-comment-formats '("php" . "//"))
+
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   ;; (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground "#555")
