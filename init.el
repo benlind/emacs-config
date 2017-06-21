@@ -41,21 +41,21 @@
 (load "yaml-mode")
 (load "markdown-mode")
 (load "dtrt-indent")
-(load "dash")
-(load "s")
-
-(load "powerline")
-(load "powerline-separators")
-(load "powerline-themes")
-
-(load "spaceline")
-(load "spaceline-segments")
-(load "spaceline-config")
+(load "org-present")
 
 ;; Disabled modules:
 ;; (load "autopair")
 ;; (load "smart-tabs-mode")
 ;; (load "ido-ubiquitous")    ;; slows down emacs and is not very useful
+
+;; (load "dash")
+;; (load "s")
+;; (load "powerline")
+;; (load "powerline-separators")
+;; (load "powerline-themes")
+;; (load "spaceline")
+;; (load "spaceline-segments")
+;; (load "spaceline-config")
 
 
 ;;; LOAD PERSONAL LISP FILES

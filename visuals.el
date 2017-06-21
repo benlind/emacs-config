@@ -45,19 +45,19 @@
 
 ;;; SPACELINE
 
-(require 'spaceline)
-(setq-default mode-line-format '("%e" (:eval (spaceline-ml-main))))
+;; (require 'spaceline)
+;; (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main))))
 
-(require 'spaceline-config)
-(spaceline-helm-mode 1)
-(spaceline-emacs-theme)
+;; (require 'spaceline-config)
+;; (spaceline-helm-mode 1)
+;; (spaceline-emacs-theme)
 
-(setq-default
- powerline-height 24
- powerline-default-separator 'wave
- spaceline-flycheck-bullet "❖ %s"
- spaceline-separator-dir-left '(right . right)
- spaceline-separator-dir-right '(left . left))
+;; (setq-default
+;;  powerline-height 24
+;;  powerline-default-separator 'wave
+;;  spaceline-flycheck-bullet "❖ %s"
+;;  spaceline-separator-dir-left '(right . right)
+;;  spaceline-separator-dir-right '(left . left))
 
 
 ;;; MISC

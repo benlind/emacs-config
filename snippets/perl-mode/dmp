@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Warn with GSG::Utils::Dumper
+# key: dmp
+# --
+use lib $ENV{HOME}.'/gsg-utils/lib'; use GSG::Utils::Dumper;
+warn "\n" . '$1:' . "\n";
+warn Dumper(${1:$var});$0
