@@ -233,13 +233,14 @@
 ;;
 ;; TODO: make it so that you can go from position 2 to 1 by pressing delete
 (defun extra-newline-inside-braces ()
-  (let ((break-open-pair (or (and (looking-back "{") (looking-at "}"))
-                             (and (looking-back ">") (looking-at "<"))
-                             (and (looking-back "(") (looking-at ")"))
-                             (and (looking-back "\\[") (looking-at "\\]")))))
-    (when break-open-pair
-      ;; (save-excursion (basic-newline))
-      (indent-for-tab-command))))
+  (when (or (and (looking-back "{") (looking-at "}"))
+            (and (looking-back ">") (looking-at "<"))
+            (and (looking-back "(") (looking-at ")"))
+            (and (looking-back "\\[") (looking-at "\\]")))
+    ;; NOTE: newline-maybe-indent will be run after this
+    (newline-and-indent)
+    (previous-line 1)
+    (move-end-of-line nil)))
 
 
 ;;; IDEAS FOR NEW FUNCTIONS
