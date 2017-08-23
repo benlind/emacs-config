@@ -27,12 +27,31 @@
 
 ;;; LOAD THIRD-PARTY MODULES
 
+;; Load Melpa
+
+(require 'package)
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (url (concat (if no-ssl "http" "https") "://melpa.org/packages/")))
+  (add-to-list 'package-archives (cons "melpa" url) t))
+(when (< emacs-major-version 24)
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize)
+
+;; NOTE: I used to load packages manually because (I thought) my server's
+;; firewall didn't let me connect to Melpa or Elpa. However, I now know I can
+;; run `http_proxy= https_proxy= emacs` and connect to the repos. So...I will
+;; now install my packages via Melpa (M-x list-packages). This is great because
+;; I can easily update packages.
+;;
+;; HOWEVER, I will still maintain a commented list below of the packages I have
+;; installed so that I can go back to manually loading them in the future if
+;; necessary.
+
 ;; Set elisp directories
 
-(package-initialize)  ;; added by Package.el (and it will ALWAYS be added....)
-
 (add-to-list 'load-path "~/.emacs.d/lisp/")
-(add-to-list 'load-path "~/.emacs.d/lisp/multiple-cursors")
+;; (add-to-list 'load-path "~/.emacs.d/lisp/multiple-cursors")
 
 ;; These "load" params correspond to file names in ~/.emacs.d/lisp:
 (load "web-mode")
@@ -42,7 +61,7 @@
 (load "auto-complete")
 (load "ido-vertical-mode")
 (load "yasnippet")
-(load "multiple-cursors")
+;; (load "multiple-cursors")
 (load "buffer-move")
 (load "yaml-mode")
 (load "markdown-mode")

@@ -239,6 +239,3 @@
 
 ;; Make Delete key delete selection; also, typing over selection replaces it
 (delete-selection-mode 1)
-
-;; Multiple cursors (see keybindings.el)
-(require 'multiple-cursors)
