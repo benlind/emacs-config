@@ -120,8 +120,8 @@
 
 ;;; AUTO-PAIRING
 
-;; ;; Electric pairing
-;; (electric-pair-mode)
+;; Electric pairing
+(electric-pair-mode)
 
 ;; ;; Autopair
 
