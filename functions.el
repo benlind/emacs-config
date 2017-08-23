@@ -201,7 +201,8 @@
 
 (defun newline-dwim ()
   (interactive)
-  (run-hooks 'newline-hooks))
+  (if (derived-mode-p 'dired-mode) (dired-find-file)  ;; find file if in dired mode
+    (run-hooks 'newline-hooks)))                      ;; ...otherwise run my hooks
 
 (add-hook 'newline-hooks #'newline-maybe-indent)
 (add-hook 'newline-hooks #'extra-newline-inside-braces)
