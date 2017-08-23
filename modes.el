@@ -21,9 +21,8 @@
       cperl-continued-statement-offset 4
       cperl-indent-parens-as-block t
       cperl-tab-always-indent t
-      cperl-invalid-face (quote off))
-(add-hook 'cperl-mode-hook   ;; prevent extra right-brace on left-brace, like: {}}
-          (lambda () (local-unset-key (kbd "{"))))
+      cperl-invalid-face (quote off)
+      cperl-merge-trailing-else nil)
 
 
 ;;; SMEX (M-x fuzzy completion)
