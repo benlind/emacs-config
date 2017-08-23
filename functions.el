@@ -140,12 +140,15 @@
 (defun my-yank ()
   "Yank, indent, and trim trailing whitespace"
   (interactive)
-  (if (derived-mode-p 'web-mode)
-      (progn
-        (yank)
-        (web-mode))
-    (yank)
-    (delete-trailing-whitespace (region-beginning) (region-end))
+  (yank)
+
+  (if (derived-mode-p 'web-mode) (web-mode))  ;; re-enable web-mode
+
+  (delete-trailing-whitespace (region-beginning) (region-end))
+
+  ;; Auto-indent the yanked code
+  (unless (derived-mode-p  ;; do not auto-indent for these modes
+           'yaml-mode)
     (indent-region (region-beginning) (region-end))))
 
 (defun smarter-move-beginning-of-line (arg)
