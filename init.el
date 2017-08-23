@@ -19,6 +19,7 @@
 ;;   closes all buffers besides the current one.
 ;; - expand-region: https://github.com/magnars/expand-region.el
 ;; - smartparens: https://github.com/Fuco1/smartparens
+;; - undo-tree: https://www.emacswiki.org/emacs/UndoTree
 ;;
 ;; Look at these example init files for more ideas:
 ;; https://github.com/bbatsov/emacs.d/blob/master/init.el
@@ -99,6 +100,7 @@
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
  '(custom-safe-themes (quote ("06b2849748590f7f991bf0aaaea96611bb3a6982cad8b1e3fc707055b96d64ca" default)))
+ '(fill-column 80)
  '(safe-local-variable-values (quote ((require-final-newline))))
  '(text-mode-hook (quote (text-mode-hook-identify))))
 
