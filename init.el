@@ -67,6 +67,7 @@
 (load "markdown-mode")
 (load "dtrt-indent")
 (load "org-present")
+(load "color-theme-sanityinc-tomorrow")
 
 ;; Disabled modules:
 ;; (load "autopair")

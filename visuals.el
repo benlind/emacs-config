@@ -8,6 +8,13 @@
 
 (load-theme 'zenburn t)
 
+;; Monokai
+;; (load-theme 'monokai t)
+
+;; ;; SanityInc tomorrow
+;; (require 'color-theme-sanityinc-tomorrow)
+;; (load-theme 'sanityinc-tomorrow-bright t)
+
 ;; ;; Solarized
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized/")
 ;; (load-theme 'solarized t)
