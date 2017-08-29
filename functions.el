@@ -148,7 +148,9 @@
 
   ;; Auto-indent the yanked code
   (unless (derived-mode-p  ;; do not auto-indent for these modes
-           'yaml-mode)
+           'yaml-mode
+           'fundamental-mode
+           )
     (indent-region (region-beginning) (region-end))))
 
 (defun smarter-move-beginning-of-line (arg)
@@ -223,7 +225,8 @@
        ;; List of modes to NOT auto-indent in:
        'fundamental-mode
        'text-mode
-       'sql-mode)
+       'sql-mode
+       )
 
       ;; If we're in one of the above modes, DO NOT auto-indent
       (newline)
