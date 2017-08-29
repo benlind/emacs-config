@@ -48,6 +48,8 @@
     (define-key map (kbd "C-c l")         'goto-line)
     (define-key map (kbd "C-x C-l")       'linum-mode)  ; toggle line numbers
     (define-key map (kbd "C-x l")         'linum-mode)
+    (define-key map (kbd "C-x t")         'toc)
+    (define-key map (kbd "C-x C-t")       'toc)
     map)
   "my-keys-minor-mode keymap")
 

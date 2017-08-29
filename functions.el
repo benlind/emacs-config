@@ -196,6 +196,16 @@
                             ("\x2019" . "'"))
                           nil beg end))
 
+(defun toc ()
+  "Show a 'Table of Contents' for the current file using occur"
+  (interactive)
+  (let (regexp
+        (case-fold-search nil))      ;; make regexp case-sensitive
+    (if (derived-mode-p 'cperl-mode) ;; regexp for perl
+        (setq regexp "^\\(sub\\|has\\|=head1\\|requires\\) ")
+      (setq regexp "^function "))    ;; regexp for everything else
+    (occur regexp)))
+
 
 ;;; CUSTOMIZE NEWLINE FUNCTION
 
