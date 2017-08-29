@@ -23,6 +23,8 @@
       cperl-tab-always-indent t
       cperl-invalid-face (quote off)
       cperl-merge-trailing-else nil)
+(add-hook 'cperl-mode-hook   ;; prevent extra right-brace on left-brace, like: {}}
+          (lambda () (local-unset-key (kbd "{"))))
 
 
 ;;; SMEX (M-x fuzzy completion)
