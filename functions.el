@@ -150,6 +150,7 @@
   (unless (derived-mode-p  ;; do not auto-indent for these modes
            'yaml-mode
            'fundamental-mode
+           'sql-mode
            )
     (indent-region (region-beginning) (region-end))))
 
