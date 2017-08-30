@@ -205,7 +205,7 @@
   (let (regexp
         (case-fold-search nil))      ;; make regexp case-sensitive
     (if (derived-mode-p 'cperl-mode) ;; regexp for perl
-        (setq regexp "^\\(sub\\|has\\|=head1\\|requires\\) ")
+        (setq regexp "^\\(sub\\|has\\|=head1\\|requires\\|around\\) ")
       (setq regexp "^function "))    ;; regexp for everything else
     (occur regexp)))
 
