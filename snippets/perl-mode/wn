@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Warn with newline
+# key: wn
+# --
+warn "$0\n";
