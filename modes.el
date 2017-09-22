@@ -8,6 +8,10 @@
 (add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.conf\\'"  . yaml-mode))
 
+;; Use yaml-fill-paragraph instead of fill-paragraph
+(add-hook 'yaml-mode-hook
+          (lambda () (local-set-key (kbd "M-q") #'yaml-fill-paragraph)))
+
 
 ;;; PERL
 
@@ -122,6 +126,9 @@
 ;;; AUTO-PAIRING
 
 ;; Electric pairing
+
+;; XXX: I can't figure out how to ONLY enable electir-pair-mode in specific
+;; major modes.
 (electric-pair-mode)
 
 ;; ;; Autopair
