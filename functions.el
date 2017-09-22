@@ -142,12 +142,12 @@
   (interactive)
   (yank)
 
-  (if (derived-mode-p 'web-mode) (web-mode))  ;; re-enable web-mode
+  (if (current-mode-one-of 'web-mode) (web-mode))  ;; re-enable web-mode
 
   (delete-trailing-whitespace (region-beginning) (region-end))
 
   ;; Auto-indent the yanked code
-  (unless (derived-mode-p  ;; do not auto-indent for these modes
+  (unless (current-mode-one-of  ;; do not auto-indent for these modes
            'yaml-mode
            'fundamental-mode
            'sql-mode
@@ -204,7 +204,7 @@
   (interactive)
   (let (regexp
         (case-fold-search nil))      ;; make regexp case-sensitive
-    (if (derived-mode-p 'cperl-mode) ;; regexp for perl
+    (if (current-mode-one-of 'cperl-mode) ;; regexp for perl
         (setq regexp "^\\(sub\\|has\\|=head1\\|requires\\|around\\) ")
       (setq regexp "^function "))    ;; regexp for everything else
     (occur regexp)))
@@ -214,19 +214,20 @@
 
 (defun newline-dwim ()
   (interactive)
-  (if (derived-mode-p 'dired-mode) (dired-find-file)  ;; find file if in dired mode
-    (run-hooks 'newline-hooks)))                      ;; ...otherwise run my hooks
+  (if (current-mode-one-of 'dired-mode) (dired-find-file) ;; find file if in dired mode
+    (run-hooks 'newline-hooks)))                          ;; ...otherwise run my hooks
 
 (add-hook 'newline-hooks #'newline-maybe-indent)
 (add-hook 'newline-hooks #'extra-newline-inside-braces)
 
 (defun newline-maybe-indent ()
   "Add a newline and auto-indent it if we're in certain modes."
-  (if (derived-mode-p
+  (if (current-mode-one-of
        ;; List of modes to NOT auto-indent in:
        'fundamental-mode
        'text-mode
        'sql-mode
+       'conf-colon-mode
        )
 
       ;; If we're in one of the above modes, DO NOT auto-indent
@@ -234,6 +235,18 @@
 
     ;; Otherwise (for all other modes), DO auto-indent
     (newline-and-indent)))
+
+(defun current-mode-one-of (&rest modes)
+  "Returns true if the current major-mode is one of the passed
+modes. This is different from derived-mode-p, which evaluates the
+current mode AND all of its parent modes."
+  (let ((cur-mode major-mode))
+     (memq cur-mode modes)))
+
+(defun describe-current-mode ()
+  "Displays the current major mode in the minibuffer"
+  (interactive)
+  (message "Current mode: '%s'" major-mode))
 
 ;; Auto expand when pressing enter between braces.
 ;;
