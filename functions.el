@@ -204,10 +204,12 @@
   "Show a 'Table of Contents' for the current file using occur"
   (interactive)
   (let (regexp
-        (case-fold-search nil))      ;; make regexp case-sensitive
-    (if (current-mode-one-of 'cperl-mode) ;; regexp for perl
-        (setq regexp "^\\(sub\\|has\\|=head1\\|requires\\|around\\) ")
-      (setq regexp "^function "))    ;; regexp for everything else
+        (case-fold-search nil))  ; make regexp case-sensitive
+    (cond ((current-mode-one-of 'cperl-mode) ; regexp for perl
+           (setq regexp "^\\(sub\\|has\\|=head1\\|requires\\|around\\) "))
+          ((current-mode-one-of 'sh-mode)    ; regexp for shell scripts
+           (setq regexp "^[A-za-z0-9_]+()"))
+      (setq regexp "^function "))            ; regexp for everything else
     (occur regexp)))
 
 
