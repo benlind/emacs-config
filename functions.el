@@ -151,6 +151,7 @@
            'yaml-mode
            'fundamental-mode
            'sql-mode
+           'makefile-gmake-mode
            )
     (indent-region (region-beginning) (region-end))))
 
