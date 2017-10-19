@@ -150,6 +150,15 @@
 ;; Always redraw the screen on every scroll step (smoother scrolling)
 (setq redisplay-dont-pause t)
 
+;; Open the *scratch* buffer in fundamental mode with no message on startup
+(setq initial-major-mode 'fundamental-mode)
+(setq initial-scratch-message nil)
+
+;; The following line will make emacs always open the *scratch* buffer on start,
+;; but that means when you edit a commit message it opens *scratch* instead of
+;; COMMIT_EDITMSG.
+;; (setq initial-buffer-choice t)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
