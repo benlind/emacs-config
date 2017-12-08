@@ -154,6 +154,9 @@
 (setq initial-major-mode 'fundamental-mode)
 (setq initial-scratch-message nil)
 
+;; Set # as the default comment syntax (mainly for *scratch*)
+(setq-default comment-start "# ")
+
 ;; The following line will make emacs always open the *scratch* buffer on start,
 ;; but that means when you edit a commit message it opens *scratch* instead of
 ;; COMMIT_EDITMSG.
