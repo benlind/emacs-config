@@ -3,11 +3,14 @@
 ;; custom keybindings (see keybindings.el).
 
 (defun my-open-new-line-unindented ()
-  "Moves to a new, left-indented line below the current line."
+  "Inserts a newline with no indentation."
   (interactive)
-  (open-line 1)
-  (next-line 1)
-  (move-beginning-of-line nil))
+  (if (current-mode-one-of 'org-mode)
+      (org-insert-heading)  ; do the Right Thing for org mode
+    ;; Otherwise insert a newline with no indentation
+    (open-line 1)
+    (next-line 1)
+    (move-beginning-of-line nil)))
 
 (defun my-unindent-region (N)
   (interactive "p")
