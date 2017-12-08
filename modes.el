@@ -27,7 +27,7 @@
       cperl-tab-always-indent t
       cperl-invalid-face (quote off)
       cperl-merge-trailing-else nil)
-(add-hook 'cperl-mode-hook   ;; prevent extra right-brace on left-brace, like: {}}
+(add-hook 'cperl-mode-hook   ; prevent extra right-brace on left-brace, like: {}}
           (lambda () (local-unset-key (kbd "{"))))
 
 
@@ -81,7 +81,7 @@
 ;; Show line numbers. Note, this can make scrolling and line navigation slow,
 ;; even with the below linum-delay setting.
 ;; (global-linum-mode 1)
-;; (setq linum-delay t)   ;; help prevent linum from slowing things down
+;; (setq linum-delay t)   ; help prevent linum from slowing things down
 
 ;; ;; Right-align line numbers and add single space padding to right
 ;; (defadvice linum-update-window (around linum-dynamic activate)
@@ -98,7 +98,7 @@
 
 ;; ;; Enable fill column mode
 ;; (require 'fill-column-indicator)
-;; (add-hook 'c-mode-hook 'fci-mode) ;; turn on fci-mode for C files
+;; (add-hook 'c-mode-hook 'fci-mode) ; turn on fci-mode for C files
 
 
 ;;; AUTO-COMPLETION
@@ -106,7 +106,7 @@
 ;; auto complete mode
 (require 'auto-complete)
 (global-auto-complete-mode t)
-(ac-linum-workaround) ;; Stop flickering line numbers for auto-complete dropdown
+(ac-linum-workaround) ; stop flickering line numbers for auto-complete dropdown
 
 
 ;;; IDO (Interactively Do Things)
@@ -116,7 +116,7 @@
 (ido-mode 1)
 (ido-everywhere 1)
 (ido-vertical-mode 1)
-(setq ido-vertical-define-keys 'C-n-C-p-up-and-down)  ;; use C-n and C-p to cycle
+(setq ido-vertical-define-keys 'C-n-C-p-up-and-down)  ; use C-n and C-p to cycle
 
 ;; IDO ubiquitous: use IDO everywhere
 ;; (require 'ido-ubiquitous)
@@ -135,7 +135,7 @@
 
 ;; ;; Auto-close braces and quotes, and auto indent on RET inside braces
 ;; (require 'autopair)
-;; (autopair-global-mode)  ;; enable autopair in all buffers
+;; (autopair-global-mode)  ; enable autopair in all buffers
 ;; (setq autopair-blink nil)
 
 ;; ;; Disable autopair in minibuffer
@@ -209,7 +209,7 @@
 
 ;;; SNIPPETS
 
-(require 'yasnippet) ;; WARNING: This seems to slow down load time significantly
+(require 'yasnippet) ; WARNING: This seems to slow down load time significantly
 (setq yas-snippet-dirs
       '("~/.emacs.d/snippets"))
 (yas-global-mode 1)

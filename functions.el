@@ -125,18 +125,18 @@
    hash (Perl)"
   (interactive)
   ;; XXX: Could use (current-indentation) instead of moving mark?
-  (back-to-indentation) ;; move to first non-whitespace character on line
-  (kill-line 0)         ;; kill line backwards
-  (indent-relative)     ;; indent to first non-whitespace char of prev line
+  (back-to-indentation) ; move to first non-whitespace character on line
+  (kill-line 0)         ; kill line backwards
+  (indent-relative)     ; indent to first non-whitespace char of prev line
   (shift-left 4)
   (move-end-of-line nil))
 
 (defun my-indent-function-parameters ()
   "Correctly indent function parameters on new lines"
   (interactive)
-  (back-to-indentation) ;; move to first non-whitespace character on line
-  (kill-line 0)         ;; kill line backwards
-  (indent-relative)     ;; indent to first non-whitespace char of prev line
+  (back-to-indentation) ; move to first non-whitespace character on line
+  (kill-line 0)         ; kill line backwards
+  (indent-relative)     ; indent to first non-whitespace char of prev line
   (shift-right 4)
   (move-end-of-line nil))
 
@@ -145,12 +145,12 @@
   (interactive)
   (yank)
 
-  (if (current-mode-one-of 'web-mode) (web-mode))  ;; re-enable web-mode
+  (if (current-mode-one-of 'web-mode) (web-mode))  ; re-enable web-mode
 
   (delete-trailing-whitespace (region-beginning) (region-end))
 
   ;; Auto-indent the yanked code
-  (unless (current-mode-one-of  ;; do not auto-indent for these modes
+  (unless (current-mode-one-of  ; do not auto-indent for these modes
            'yaml-mode
            'fundamental-mode
            'sql-mode
@@ -220,8 +220,8 @@
 
 (defun newline-dwim ()
   (interactive)
-  (if (current-mode-one-of 'dired-mode) (dired-find-file) ;; find file if in dired mode
-    (run-hooks 'newline-hooks)))                          ;; ...otherwise run my hooks
+  (if (current-mode-one-of 'dired-mode) (dired-find-file) ; find file if in dired mode
+    (run-hooks 'newline-hooks)))                          ; ...otherwise run my hooks
 
 (add-hook 'newline-hooks #'newline-maybe-indent)
 (add-hook 'newline-hooks #'extra-newline-inside-braces)

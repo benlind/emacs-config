@@ -32,7 +32,7 @@
 (set-face-attribute 'region nil :background "#4e4e4e")
 
 ;; Set the line number color
-;; (set-face-foreground 'linum "#444")  ;; comment this out if linum-mode is disabled
+;; (set-face-foreground 'linum "#444")  ; comment this out if linum-mode is disabled
 
 ;; Highlight matching pairs (parens, braces, etc.)
 (show-paren-mode 1)

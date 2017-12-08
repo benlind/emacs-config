@@ -57,7 +57,7 @@
 (load "web-mode")
 (load "auto-indent-mode")
 (load "smex")
-(load "popup")              ;; for auto-complete
+(load "popup")              ; for auto-complete
 (load "auto-complete")
 (load "ido-vertical-mode")
 (load "yasnippet")
@@ -72,7 +72,7 @@
 ;; Disabled modules:
 ;; (load "autopair")
 ;; (load "smart-tabs-mode")
-;; (load "ido-ubiquitous")    ;; slows down emacs and is not very useful
+;; (load "ido-ubiquitous")    ; slows down emacs and is not very useful
 
 ;; (load "dash")
 ;; (load "s")
