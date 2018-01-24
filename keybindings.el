@@ -50,6 +50,7 @@
     (define-key map (kbd "C-x l")         'linum-mode)
     (define-key map (kbd "C-x t")         'toc)
     (define-key map (kbd "C-x C-t")       'toc)
+    (define-key map (kbd "C-c C-f")       'projectile-find-file)
     map)
   "my-keys-minor-mode keymap")
 

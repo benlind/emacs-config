@@ -238,6 +238,17 @@
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 
+;;; PROJECTILE
+
+(projectile-mode)
+
+;; Cache ALL the FILES \(°□°)/
+;;
+;; Running `C-u C-c p f' will invalidate the cache prior to prompting you for a
+;; file to jump to.
+(setq projectile-enable-caching t)
+
+
 ;;; MISC
 
 ;; Show column number in status bar
