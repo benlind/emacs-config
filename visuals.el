@@ -6,10 +6,8 @@
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
-(load-theme 'zenburn t)
-
-;; Monokai
-;; (load-theme 'monokai t)
+;; (load-theme 'zenburn t)
+(load-theme 'monokai t)
 
 ;; ;; SanityInc tomorrow
 ;; (require 'color-theme-sanityinc-tomorrow)
@@ -25,11 +23,11 @@
 
 ;; Highlight the current line
 (global-hl-line-mode 1)
-(set-face-background 'hl-line "#333")
-(set-face-foreground 'highlight nil)
+;; (set-face-background 'hl-line "#333")
+;; (set-face-foreground 'highlight nil)
 
 ;; Set the region highlight color
-(set-face-attribute 'region nil :background "#4e4e4e")
+;; (set-face-attribute 'region nil :background "#4e4e4e")
 
 ;; Set the line number color
 ;; (set-face-foreground 'linum "#444")  ; comment this out if linum-mode is disabled
