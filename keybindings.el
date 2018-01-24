@@ -51,6 +51,9 @@
     (define-key map (kbd "C-x t")         'toc)
     (define-key map (kbd "C-x C-t")       'toc)
     (define-key map (kbd "C-c C-f")       'projectile-find-file)
+    (define-key map (kbd "C-x C-g")       'magit-status)
+    (define-key map (kbd "C-x g")         'magit-status)
+    (define-key map (kbd "C-x M-g")       'magit-dispatch-group)
     map)
   "my-keys-minor-mode keymap")
 
