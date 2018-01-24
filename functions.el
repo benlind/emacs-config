@@ -84,31 +84,55 @@
             end (line-end-position)))
     (comment-or-uncomment-region beg end)))
 
-(defun shift-text(distance)
-  "Shifts the current line or region by the passed distance. The
-   distance can be negative."
-  ; TODO: restore mark after shift (https://superuser.com/a/455404/536749)
+;; Source: https://stackoverflow.com/a/35183657/1054633
+(defun indent-region-custom (numSpaces)
+  "Shifts the current line or region by the passed number of
+   spaces. The distance can be negative. Restores the region
+   afterwards so you can hit shift the same region multiple times
+   without re-selection."
   (interactive)
-  (let (beg end)
-    (if (region-active-p)
-        (progn
-          (setq beg (region-beginning) end (region-end))
-          (save-excursion
-            (setq beg (progn (goto-char beg) (line-beginning-position))
-                  end (progn (goto-char end) (line-end-position)))))
-      (setq beg (line-beginning-position)
-            end (line-end-position)))
-    (indent-rigidly beg end distance)))
+  (progn
+    ;; default to start and end of current line
+    (setq regionStart (line-beginning-position))
+    (setq regionEnd (line-end-position))
 
-(defun shift-right (distance)
-  "Shifts the current line or region right by the passed distance."
-  (interactive "p")
-  (shift-text distance))
+    ;; if there's a selection, use that instead of the current line
+    (when (use-region-p)
+      (setq regionStart (region-beginning))
+      (setq regionEnd (region-end)))
 
-(defun shift-left (distance)
-  "Shifts the current line or region left by the passed distance."
+    (save-excursion                          ; restore the position afterwards
+      (goto-char regionStart)                ; go to the start of region
+      (setq start (line-beginning-position)) ; save the start of the line
+      (goto-char regionEnd)                  ; go to the end of region
+      (setq end (line-end-position))         ; save the end of the line
+
+      (indent-rigidly start end numSpaces)   ; indent between start and end
+      (setq deactivate-mark nil)             ; restore the selected region
+      )))
+
+(defun untab-region (N)
+    (interactive "p")
+    (indent-region-custom -4))
+
+(defun tab-region (N)
   (interactive "p")
-  (shift-text (- distance)))
+  (if (active-minibuffer-window)
+      (minibuffer-complete)        ; tab is pressed in minibuffer window, so do completion
+    (if (string= (buffer-name) "*shell*")
+        (comint-dynamic-complete)  ; in a shell, use tab completion
+      (if (use-region-p)           ; tab is pressed is any other buffer, so
+                                   ; execute with space insertion
+          (indent-region-custom 4) ; region was selected, call indent-region
+        (insert "    ")            ; else insert four spaces as expected
+        ))))
+
+(defun my-unindent ()
+  (interactive)
+  (if (current-mode-one-of 'Custom-mode)
+      ;; When using Customize, focus the previous field
+      (widget-backward)
+    (untab-region 4)))
 
 (require 'buffer-move)
 (defun swap-buffers ()
