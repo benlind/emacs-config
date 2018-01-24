@@ -103,10 +103,9 @@
 
 ;;; AUTO-COMPLETION
 
-;; auto complete mode
-(require 'auto-complete)
-(global-auto-complete-mode t)
-(ac-linum-workaround) ; stop flickering line numbers for auto-complete dropdown
+;; (require 'auto-complete)
+;; (global-auto-complete-mode t)
+;; (ac-linum-workaround) ; stop flickering line numbers for auto-complete dropdown
 
 
 ;;; IDO (Interactively Do Things)
@@ -131,57 +130,10 @@
 ;; major modes.
 (electric-pair-mode)
 
-;; This is a slightly modified version of the same function in electric.el
-;; (/usr/share/emacs/24.3/lisp/electric.el.gz). It ensures that quotes are NOT
-;; auto-paired.
-(defun electric-pair-post-self-insert-function ()
-  (let* ((syntax (and (eq (char-before) last-command-event) ; Sanity check.
-		      (electric-pair-syntax last-command-event)))
-         ;; FIXME: when inserting the closer, we should maybe use
-         ;; self-insert-command, although it may prove tricky running
-         ;; post-self-insert-hook recursively, and we wouldn't want to trigger
-         ;; blink-matching-open.
-         (closer (if (eq syntax ?\()
-                     (cdr (or (assq last-command-event electric-pair-pairs)
-                              (aref (syntax-table) last-command-event)))
-                   last-command-event)))
-    (cond
-     ;; Wrap a pair around the active region.
-     ((and (memq syntax '(?\( ?\$)) (use-region-p))
-      (if (> (mark) (point))
-          (goto-char (mark))
-	;; We already inserted the open-paren but at the end of the
-	;; region, so we have to remove it and start over.
-	(delete-char -1)
-	(save-excursion
-          (goto-char (mark))
-	  ;; Do not insert after `save-excursion' marker (Bug#11520).
-          (insert-before-markers last-command-event)))
-      (insert closer))
-     ;; Backslash-escaped: no pairing, no skipping.
-     ((save-excursion
-        (goto-char (1- (point)))
-        (not (zerop (% (skip-syntax-backward "\\") 2))))
-      nil)
-     ;; Skip self.
-     ((and (memq syntax '(?\) ?\$))
-           electric-pair-skip-self
-           (eq (char-after) last-command-event))
-      ;; This is too late: rather than insert&delete we'd want to only skip (or
-      ;; insert in overwrite mode).  The difference is in what goes in the
-      ;; undo-log and in the intermediate state which might be visible to other
-      ;; post-self-insert-hook.  We'll just have to live with it for now.
-      (delete-char 1))
-     ;; Insert matching pair.
-     ((not (or (not (memq syntax `(?\( ?\$)))
-               overwrite-mode
-               ;; I find it more often preferable not to pair when the
-               ;; same char is next.
-               (eq last-command-event (char-after))
-               (eq last-command-event (char-before (1- (point))))
-               ;; I also find it often preferable not to pair next to a word.
-               (eq (char-syntax (following-char)) ?w)))
-      (save-excursion (insert closer))))))
+;; Don't pair single and double quotes
+(setq electric-pair-inhibit-predicate
+      (lambda (c)
+        (if (char-equal c ?\") t (electric-pair-default-inhibit c))))
 
 ;; ;; Autopair
 

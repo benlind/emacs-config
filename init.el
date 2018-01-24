@@ -50,29 +50,30 @@
 
 ;; Set elisp directories
 
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+;; (add-to-list 'load-path "~/.emacs.d/lisp/")
 ;; (add-to-list 'load-path "~/.emacs.d/lisp/multiple-cursors")
 
 ;; These "load" params correspond to file names in ~/.emacs.d/lisp:
-(load "web-mode")
-(load "auto-indent-mode")
-(load "smex")
-(load "popup")              ; for auto-complete
-(load "auto-complete")
-(load "ido-vertical-mode")
-(load "yasnippet")
+;; (load "web-mode")
+;; (load "auto-indent-mode")
+;; (load "smex")
+;; (load "ido-vertical-mode")
+;; (load "yasnippet")
 ;; (load "multiple-cursors")
-(load "buffer-move")
-(load "yaml-mode")
-(load "markdown-mode")
-(load "dtrt-indent")
-(load "org-present")
-(load "color-theme-sanityinc-tomorrow")
+;; (load "buffer-move")
+;; (load "yaml-mode")
+;; (load "markdown-mode")
+;; (load "dtrt-indent")
+;; (load "org-present")
+;; (load "color-theme-sanityinc-tomorrow")
 
 ;; Disabled modules:
 ;; (load "autopair")
 ;; (load "smart-tabs-mode")
 ;; (load "ido-ubiquitous")    ; slows down emacs and is not very useful
+
+;; (load "popup")              ; for auto-complete
+;; (load "auto-complete")
 
 ;; (load "dash")
 ;; (load "s")
