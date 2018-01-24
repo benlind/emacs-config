@@ -267,11 +267,21 @@ will be killed."
 
 (defun newline-dwim ()
   (interactive)
-  (if (current-mode-one-of 'dired-mode) (dired-find-file) ; find file if in dired mode
-    (run-hooks 'newline-hooks)))                          ; ...otherwise run my hooks
+  (if (current-mode-one-of 'dired-mode)
+    ;; Find file if in dired mode
+    (dired-find-file)
+  (if (current-mode-one-of 'Custom-mode)
+    ;; Activate button if in Customize mode
+    (Custom-newline (point))
+  (if (current-mode-one-of 'magit-mode)
+    (magit-visit-thing)
+  (if (current-mode-one-of 'magit-status-mode)
+    (magit-visit-thing)
+  ;; ...otherwise run my hooks
+  (run-hooks 'newline-hooks))))))
 
-(add-hook 'newline-hooks #'newline-maybe-indent)
 (add-hook 'newline-hooks #'extra-newline-inside-braces)
+(add-hook 'newline-hooks #'newline-maybe-indent)
 
 (defun newline-maybe-indent ()
   "Add a newline and auto-indent it if we're in certain modes."
