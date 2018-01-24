@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Warn with newline and PACKAGE
+# key: wnp
+#
+# This uses the "at $PACKAGE" format so that sandboxes with colorization render
+# the warnings in red.
+# --
+warn "$0 at ".__PACKAGE__."\n";
