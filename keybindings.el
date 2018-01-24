@@ -16,7 +16,7 @@
     (define-key map (kbd "C-o")           'other-window)
     (define-key map (kbd "C-c o")         'my-split-window-focus)
     (define-key map (kbd "C-c C-o")       'my-split-window-focus)
-    (define-key map (kbd "<backtab>")     (lambda () (interactive) (shift-left 4)))
+    (define-key map (kbd "<backtab>")     'my-unindent)
     (define-key map (kbd "C-c ;")         'comment-or-uncomment-region-or-line)
     (define-key map (kbd "C-c <down>")    'my-duplicate-current-line-or-region)
     (define-key map (kbd "C-c d")         'my-duplicate-current-line-or-region)
