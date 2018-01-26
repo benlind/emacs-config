@@ -273,12 +273,11 @@ will be killed."
   (if (current-mode-one-of 'Custom-mode)
     ;; Activate button if in Customize mode
     (Custom-newline (point))
-  (if (current-mode-one-of 'magit-mode)
-    (magit-visit-thing)
-  (if (current-mode-one-of 'magit-status-mode)
+  (if (current-mode-one-of 'magit-mode 'magit-status-mode 'magit-log-mode
+                           'magit-revision-mode)
     (magit-visit-thing)
   ;; ...otherwise run my hooks
-  (run-hooks 'newline-hooks))))))
+  (run-hooks 'newline-hooks)))))
 
 (add-hook 'newline-hooks #'extra-newline-inside-braces)
 (add-hook 'newline-hooks #'newline-maybe-indent)
@@ -331,6 +330,22 @@ current mode AND all of its parent modes."
     (newline-and-indent)
     (previous-line 1)
     (move-end-of-line nil)))
+
+(defun my-scroll-down-line ()
+  (interactive)
+  (if (current-mode-one-of 'git-rebase-mode)
+      (git-rebase-move-line-down 1)
+  (if (current-mode-one-of 'magit-status-mode)
+      (magit-section-forward-sibling)
+    (scroll-down-line))))
+
+(defun my-scroll-up-line ()
+  (interactive)
+  (if (current-mode-one-of 'git-rebase-mode)
+      (git-rebase-move-line-up 1)
+  (if (current-mode-one-of 'magit-status-mode)
+      (magit-section-backward-sibling)
+    (scroll-up-line))))
 
 
 ;;; IDEAS FOR NEW FUNCTIONS

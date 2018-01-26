@@ -24,10 +24,10 @@
     (define-key map (kbd "C-c C-n")       'my-duplicate-current-line-or-region)
     (define-key map (kbd "C-c C-a")       'align)  ; auto align Perl hashes and other things
     (define-key map (kbd "C-c C-A")       'align-regexp)  ; align based on entered regexp
-    (define-key map (kbd "<mouse-4>")     'scroll-down-line)
-    (define-key map (kbd "<mouse-5>")     'scroll-up-line)
-    (define-key map (kbd "M-n")           'scroll-up-line)
-    (define-key map (kbd "M-p")           'scroll-down-line)
+    (define-key map (kbd "<mouse-4>")     'my-scroll-down-line)
+    (define-key map (kbd "<mouse-5>")     'my-scroll-up-line)
+    (define-key map (kbd "M-n")           'my-scroll-down-line)
+    (define-key map (kbd "M-p")           'my-scroll-up-line)
     (define-key map (kbd "<M-backspace>") 'my-backward-delete-word-no-kill)
     (define-key map (kbd "<M-DEL>")       'my-backward-delete-word-no-kill)
     (define-key map (kbd "M-;")           'comment-or-uncomment-region-or-line)
@@ -53,7 +53,7 @@
     (define-key map (kbd "C-c C-f")       'projectile-find-file)
     (define-key map (kbd "C-x C-g")       'magit-status)
     (define-key map (kbd "C-x g")         'magit-status)
-    (define-key map (kbd "C-x M-g")       'magit-dispatch-group)
+    (define-key map (kbd "C-x M-g")       'magit-dispatch-popup)
     map)
   "my-keys-minor-mode keymap")
 
