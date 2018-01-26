@@ -46,7 +46,7 @@
   (interactive)
   (split-window-right)
   (other-window 1)
-  (ido-find-file))
+  (projectile-find-file))
 
 (defun my-delete-word-no-kill (arg)
   "Delete characters forward until encountering the end of a word.
