@@ -262,3 +262,6 @@
 
 ;; Make Delete key delete selection; also, typing over selection replaces it
 (delete-selection-mode 1)
+
+;; Highlight the current line when the buffer moves
+(beacon-mode)
