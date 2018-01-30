@@ -40,3 +40,6 @@
 ;; (autoload 'smart-tabs-insinuate "smart-tabs-mode")
 ;; (smart-tabs-insinuate 'c 'c++ 'java 'javascript 'cperl 'python
 ;;                       'ruby 'nxml)
+
+;; Don't auto-indent the previous line on RET
+(setq-default electric-indent-inhibit t)
