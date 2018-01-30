@@ -138,7 +138,7 @@
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (zone-rainbow zone-sl beacon smex projectile tango-plus-theme tangotango-theme tango-2-theme color-theme-solarized spacegray-theme smyx-theme seoul256-theme railscasts-reloaded-theme railscasts-theme pastelmac-theme noctilux-theme obsidian-theme mbo70s-theme liso-theme majapahit-theme lavender-theme mellow-theme material-theme color-theme-sanityinc-tomorrow dtrt-indent markdown-mode org-present buffer-move yaml-mode ido-vertical-mode yasnippet auto-indent-mode web-mode multiple-cursors magit)))
+    (helm zone-rainbow zone-sl beacon smex projectile tango-plus-theme tangotango-theme tango-2-theme color-theme-solarized spacegray-theme smyx-theme seoul256-theme railscasts-reloaded-theme railscasts-theme pastelmac-theme noctilux-theme obsidian-theme mbo70s-theme liso-theme majapahit-theme lavender-theme mellow-theme material-theme color-theme-sanityinc-tomorrow dtrt-indent markdown-mode org-present buffer-move yaml-mode ido-vertical-mode yasnippet auto-indent-mode web-mode multiple-cursors magit)))
  '(pos-tip-foreground-color "#272822")
  '(safe-local-variable-values (quote ((require-final-newline))))
  '(text-mode-hook (quote (text-mode-hook-identify)))

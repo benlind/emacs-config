@@ -249,6 +249,11 @@
 (setq projectile-enable-caching t)
 
 
+;;; HELM
+
+(require 'helm-config)
+
+
 ;;; MISC
 
 ;; Show column number in status bar
