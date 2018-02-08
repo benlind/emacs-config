@@ -52,6 +52,7 @@
     (define-key map (kbd "C-x C-t")       'toc)
     (define-key map (kbd "C-c C-f")       'projectile-find-file)
     (define-key map (kbd "C-x C-g")       'magit-status)
+    (define-key map (kbd "C-c C-s")       'helm-projectile-ack)
     (define-key map (kbd "C-x g")         'magit-status)
     (define-key map (kbd "C-x M-g")       'magit-dispatch-popup)
     map)
