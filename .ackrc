@@ -1,0 +1,12 @@
+# We basically only want to include ./*.el files
+--ignore-dir=auto-save-list
+--ignore-dir=autosaves
+--ignore-dir=backups
+--ignore-dir=elpa
+--ignore-dir=lisp
+--ignore-dir=snippets
+--ignore-dir=themes
+
+--ignore-file=match:ac-comphist.dat
+--ignore-file=match:projectile*
+--ignore-file=match:smex-items
