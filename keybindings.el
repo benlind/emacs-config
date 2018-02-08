@@ -54,6 +54,7 @@
     (define-key map (kbd "C-c C-s")       'helm-projectile-ack)
     (define-key map (kbd "C-x g")         'magit-status)
     (define-key map (kbd "C-x M-g")       'magit-dispatch-popup)
+    (define-key map (kbd "C-c C-p")       nil)  ; otherwise flyspell starts checking everything
     map)
   "my-keys-minor-mode keymap")
 
