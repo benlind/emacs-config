@@ -337,7 +337,7 @@ current mode AND all of its parent modes."
       (git-rebase-move-line-down 1)
   (if (current-mode-one-of 'magit-status-mode)
       (magit-section-forward-sibling)
-    (scroll-down-line))))
+    (scroll-up-line))))
 
 (defun my-scroll-up-line ()
   (interactive)
@@ -345,7 +345,7 @@ current mode AND all of its parent modes."
       (git-rebase-move-line-up 1)
   (if (current-mode-one-of 'magit-status-mode)
       (magit-section-backward-sibling)
-    (scroll-up-line))))
+    (scroll-down-line))))
 
 
 ;;; IDEAS FOR NEW FUNCTIONS

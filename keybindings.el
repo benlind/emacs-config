@@ -24,8 +24,8 @@
     (define-key map (kbd "C-c C-n")       'my-duplicate-current-line-or-region)
     (define-key map (kbd "C-c C-a")       'align)  ; auto align Perl hashes and other things
     (define-key map (kbd "C-c C-A")       'align-regexp)  ; align based on entered regexp
-    (define-key map (kbd "<mouse-4>")     'my-scroll-down-line)
-    (define-key map (kbd "<mouse-5>")     'my-scroll-up-line)
+    (define-key map (kbd "<mouse-4>")     'my-scroll-up-line)
+    (define-key map (kbd "<mouse-5>")     'my-scroll-down-line)
     (define-key map (kbd "M-n")           'my-scroll-down-line)
     (define-key map (kbd "M-p")           'my-scroll-up-line)
     (define-key map (kbd "<M-backspace>") 'my-backward-delete-word-no-kill)
