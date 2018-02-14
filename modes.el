@@ -252,8 +252,8 @@
 ;;; HELM
 
 (require 'helm-config)
-;; (require 'helm-projectile)
-;; (helm-projectile-on)
+(require 'helm-projectile)
+(helm-projectile-on)
 
 
 ;;; MISC
