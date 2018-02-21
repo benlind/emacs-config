@@ -276,7 +276,7 @@ will be killed."
   (if (current-mode-one-of 'magit-mode 'magit-status-mode 'magit-log-mode)
     (magit-visit-thing)
   (if (current-mode-one-of 'magit-revision-mode)
-    (call-interactively #'magit-diff-visit-file)
+    (call-interactively #'magit-diff-visit-file-other-window)
   ;; ...otherwise run my hooks
   (run-hooks 'newline-hooks))))))
 
