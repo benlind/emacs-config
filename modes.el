@@ -251,9 +251,11 @@
 
 ;;; HELM
 
+(require 'helm)
 (require 'helm-config)
 (require 'helm-projectile)
 (helm-projectile-on)
+(require 'tramp)  ;; get rid of 'void tramp-methods' error
 
 
 ;;; MISC
