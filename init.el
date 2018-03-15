@@ -38,56 +38,17 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
-;; NOTE: I used to load packages manually because (I thought) my server's
-;; firewall didn't let me connect to Melpa or Elpa. However, I now know I can
-;; run `http_proxy= https_proxy= emacs` and connect to the repos. So...I will
-;; now install my packages via Melpa (M-x list-packages). This is great because
-;; I can easily update packages.
+;; I used to load packages manually because (I thought) my server's firewall
+;; didn't let me connect to Melpa or Elpa. However, I now know I can run
+;; `http_proxy= https_proxy= emacs` and connect to the repos. So...I will now
+;; install my packages via Melpa (M-x list-packages). This is great because I
+;; can easily update packages.
 ;;
-;; HOWEVER, I will still maintain a commented list below of the packages I have
-;; installed so that I can go back to manually loading them in the future if
-;; necessary.
-;;
-;; UPDATE 2018-03-14: I probably don't need this list. package-selected-packages
-;; below keeps track of my installed packages automatically. To install them all
-;; on a new system, I just have to run package-install-selected-packages after
-;; evaluating that custom-set-variables expression.
-
-;; Set elisp directories
-
-;; (add-to-list 'load-path "~/.emacs.d/lisp/")
-;; (add-to-list 'load-path "~/.emacs.d/lisp/multiple-cursors")
-
-;; These "load" params correspond to file names in ~/.emacs.d/lisp:
-;; (load "web-mode")
-;; (load "auto-indent-mode")
-;; (load "smex")
-;; (load "ido-vertical-mode")
-;; (load "yasnippet")
-;; (load "multiple-cursors")
-;; (load "buffer-move")
-;; (load "yaml-mode")
-;; (load "markdown-mode")
-;; (load "dtrt-indent")
-;; (load "org-present")
-;; (load "color-theme-sanityinc-tomorrow")
-
-;; Disabled modules:
-;; (load "autopair")
-;; (load "smart-tabs-mode")
-;; (load "ido-ubiquitous")    ; slows down emacs and is not very useful
-
-;; (load "popup")              ; for auto-complete
-;; (load "auto-complete")
-
-;; (load "dash")
-;; (load "s")
-;; (load "powerline")
-;; (load "powerline-separators")
-;; (load "powerline-themes")
-;; (load "spaceline")
-;; (load "spaceline-segments")
-;; (load "spaceline-config")
+;; I no longer manually maintain a list of installed packages.
+;; package-selected-packages below keeps track of my installed packages
+;; automatically. To install them all on a new system, I just have to run
+;; package-install-selected-packages after evaluating that custom-set-variables
+;; expression.
 
 
 ;;; LOAD PERSONAL LISP FILES
@@ -115,7 +76,7 @@
 (load-user-file "keybindings.el")
 
 
-;;; BACKUP, AUTOSAVE, and LOCK FILES
+;;; GENERAL CUSTOMIZATIONS
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
