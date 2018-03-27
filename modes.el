@@ -257,6 +257,21 @@
 (helm-projectile-on)
 (require 'tramp)  ;; get rid of 'void tramp-methods' error
 
+;;; IBUFFER
+
+;; ibuffer makes it easy to mark a bunch of buffers (t), unmark some (u) and
+;; delete the marked ones (D).
+
+;; Ensure ibuffer opens with point at the current buffer's entry.
+;; (https://stackoverflow.com/a/3419686/1054633)
+(defadvice ibuffer
+  (around ibuffer-point-to-most-recent) ()
+  "Open ibuffer with cursor pointed to most recent buffer name."
+  (let ((recent-buffer-name (buffer-name)))
+    ad-do-it
+    (ibuffer-jump-to-buffer recent-buffer-name)))
+(ad-activate 'ibuffer)
+
 
 ;;; MISC
 

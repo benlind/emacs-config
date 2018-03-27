@@ -59,6 +59,7 @@
     (define-key map (kbd "C-c C-p")       nil)  ; otherwise flyspell starts checking everything
     ;; Press M-= once to activate and then = to expand, - to contract, 0 to quit:
     (define-key map (kbd "M-=")           'er/expand-region)
+    (define-key map (kbd "C-x C-b")       'ibuffer)
     map)
   "my-keys-minor-mode keymap")
 
