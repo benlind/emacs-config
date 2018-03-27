@@ -274,3 +274,6 @@
 
 ;; Highlight the current line when the buffer moves
 ;; (beacon-mode)
+
+;; Auto-revert unmodified files if they change on disk
+(global-auto-revert-mode t)
