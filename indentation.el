@@ -10,6 +10,7 @@
 (setq sgml-basic-offset 4)
 (setq c-basic-offset 4)
 (setq tab-width 4)
+(setq js-indent-level 2)
 
 (setq indent-line-function 'insert-tab)
 
