@@ -133,7 +133,7 @@
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; Make all "yes or no" prompts show "y or n" instead
 
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace) ;; remove trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace) ;; remove trailing whitespace on save
 
 ;; When creating new files, auto-create any nonexistent directories in the path
 (defadvice find-file (before make-directory-maybe (filename &optional wildcards) activate)
