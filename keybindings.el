@@ -44,7 +44,7 @@
     (define-key map (kbd "C-c |")         'my-indent-function-parameters)
     (define-key map (kbd "C-c C-|")       'my-indent-function-parameters)
     (define-key map (kbd "<M-RET>")       'my-open-new-line-unindented)
-    (define-key map (kbd "C-y")           'my-yank)
+    ;; (define-key map (kbd "C-y")           'my-yank)
     (define-key map (kbd "<RET>")         'newline-dwim)
     (define-key map (kbd "C-c C-l")       'goto-line)
     (define-key map (kbd "C-c l")         'goto-line)
