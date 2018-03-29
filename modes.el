@@ -257,6 +257,7 @@
 (helm-projectile-on)
 (require 'tramp)  ;; get rid of 'void tramp-methods' error
 
+
 ;;; IBUFFER
 
 ;; ibuffer makes it easy to mark a bunch of buffers (t), unmark some (u) and
@@ -271,6 +272,12 @@
     ad-do-it
     (ibuffer-jump-to-buffer recent-buffer-name)))
 (ad-activate 'ibuffer)
+
+
+;;; GIT GUTTER
+
+(global-git-gutter+-mode)
+(setq git-gutter+-window-width 2)
 
 
 ;;; MISC
