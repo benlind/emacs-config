@@ -19,6 +19,7 @@
 ;;   closes all buffers besides the current one.
 ;; - smartparens: https://github.com/Fuco1/smartparens
 ;; - undo-tree: https://www.emacswiki.org/emacs/UndoTree
+;; - editorconfig-emacs: https://github.com/editorconfig/editorconfig-emacs
 ;;
 ;; Look at these example init files for more ideas:
 ;; https://github.com/bbatsov/emacs.d/blob/master/init.el
