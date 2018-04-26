@@ -60,6 +60,14 @@
     ;; Press M-= once to activate and then = to expand, - to contract, 0 to quit:
     (define-key map (kbd "M-=")           'er/expand-region)
     (define-key map (kbd "C-x C-b")       'ibuffer)
+    (define-key map (kbd "C-c <left>")    'windmove-left)
+    (define-key map (kbd "C-c [")         'windmove-left)
+    (define-key map (kbd "C-c <right>")   'windmove-right)
+    (define-key map (kbd "C-c ]")         'windmove-right)
+    (define-key map (kbd "C-c <up>")      'windmove-up)
+    (define-key map (kbd "C-c k")         'windmove-up)
+    (define-key map (kbd "C-c <down>")    'windmove-down)
+    (define-key map (kbd "C-c j")         'windmove-down)
     map)
   "my-keys-minor-mode keymap")
 
