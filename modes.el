@@ -277,7 +277,7 @@
 ;;; GIT GUTTER
 
 (global-git-gutter+-mode)
-(setq git-gutter+-window-width 2)
+;; (setq git-gutter+-window-width 2)
 
 
 ;;; MISC
