@@ -118,6 +118,7 @@
  ;; If there is more than one, they won't work right.
  '(cperl-array-face ((t (:foreground "color-208"))))
  '(cperl-hash-face ((t (:foreground "color-208"))))
+ '(ediff-current-diff-C ((t (:background "color-17"))))
  '(git-gutter+-added ((t (:inherit default :background "color-234" :foreground "green"))))
  '(git-gutter+-deleted ((t (:inherit bold :background "color-234" :foreground "#FF1493"))))
  '(git-gutter+-modified ((t (:inherit bold :background "color-234" :foreground "#5FD7FF"))))
