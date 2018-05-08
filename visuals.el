@@ -7,11 +7,11 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
 ;; (load-theme 'zenburn t)
-(load-theme 'monokai t)
+;; (load-theme 'monokai t)
 
 ;; ;; SanityInc tomorrow
 ;; (require 'color-theme-sanityinc-tomorrow)
-;; (load-theme 'sanityinc-tomorrow-bright t)
+(load-theme 'sanityinc-tomorrow-bright t)
 
 ;; ;; Solarized
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized/")

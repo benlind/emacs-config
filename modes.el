@@ -186,9 +186,9 @@
   ;; (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground "#555")
   (setq web-mode-enable-auto-closing              t) ; this could break yanking html
   (setq web-mode-enable-auto-pairing              t)
-  (setq web-mode-code-indent-offset               4)
-  (setq web-mode-css-indent-offset                4)
-  (setq web-mode-markup-indent-offset             4)
+  (setq web-mode-code-indent-offset               2)
+  (setq web-mode-css-indent-offset                2)
+  (setq web-mode-markup-indent-offset             2)
   (setq web-mode-enable-css-colorization          t)
   (setq web-mode-enable-current-element-highlight t)
   )
@@ -246,7 +246,7 @@
 ;;
 ;; Running `C-u C-c p f' will invalidate the cache prior to prompting you for a
 ;; file to jump to.
-(setq projectile-enable-caching t)
+;; (setq projectile-enable-caching t)
 
 
 ;;; HELM
@@ -256,6 +256,28 @@
 (require 'helm-projectile)
 (helm-projectile-on)
 (require 'tramp)  ;; get rid of 'void tramp-methods' error
+
+
+;;; IBUFFER
+
+;; ibuffer makes it easy to mark a bunch of buffers (t), unmark some (u) and
+;; delete the marked ones (D).
+
+;; Ensure ibuffer opens with point at the current buffer's entry.
+;; (https://stackoverflow.com/a/3419686/1054633)
+(defadvice ibuffer
+  (around ibuffer-point-to-most-recent) ()
+  "Open ibuffer with cursor pointed to most recent buffer name."
+  (let ((recent-buffer-name (buffer-name)))
+    ad-do-it
+    (ibuffer-jump-to-buffer recent-buffer-name)))
+(ad-activate 'ibuffer)
+
+
+;;; GIT GUTTER
+
+(global-git-gutter+-mode)
+;; (setq git-gutter+-window-width 2)
 
 
 ;;; MISC
@@ -274,3 +296,6 @@
 
 ;; Highlight the current line when the buffer moves
 ;; (beacon-mode)
+
+;; Auto-revert unmodified files if they change on disk
+(global-auto-revert-mode t)

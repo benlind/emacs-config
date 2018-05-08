@@ -44,7 +44,7 @@
     (define-key map (kbd "C-c |")         'my-indent-function-parameters)
     (define-key map (kbd "C-c C-|")       'my-indent-function-parameters)
     (define-key map (kbd "<M-RET>")       'my-open-new-line-unindented)
-    (define-key map (kbd "C-y")           'my-yank)
+    ;; (define-key map (kbd "C-y")           'my-yank)
     (define-key map (kbd "<RET>")         'newline-dwim)
     (define-key map (kbd "C-c C-l")       'goto-line)
     (define-key map (kbd "C-c l")         'goto-line)
@@ -59,6 +59,15 @@
     (define-key map (kbd "C-c C-p")       nil)  ; otherwise flyspell starts checking everything
     ;; Press M-= once to activate and then = to expand, - to contract, 0 to quit:
     (define-key map (kbd "M-=")           'er/expand-region)
+    (define-key map (kbd "C-x C-b")       'ibuffer)
+    (define-key map (kbd "C-c <left>")    'windmove-left)
+    (define-key map (kbd "C-c [")         'windmove-left)
+    (define-key map (kbd "C-c <right>")   'windmove-right)
+    (define-key map (kbd "C-c ]")         'windmove-right)
+    (define-key map (kbd "C-c <up>")      'windmove-up)
+    (define-key map (kbd "C-c k")         'windmove-up)
+    (define-key map (kbd "C-c <down>")    'windmove-down)
+    (define-key map (kbd "C-c j")         'windmove-down)
     map)
   "my-keys-minor-mode keymap")
 

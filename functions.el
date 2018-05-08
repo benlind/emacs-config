@@ -111,9 +111,11 @@
       (setq deactivate-mark nil)             ; restore the selected region
       )))
 
+;; TODO: Don't use a hard-coded tab width. Instead check the tab width for the
+;; current mode.
 (defun untab-region (N)
     (interactive "p")
-    (indent-region-custom -4))
+    (indent-region-custom -2))
 
 (defun tab-region (N)
   (interactive "p")
@@ -123,7 +125,7 @@
         (comint-dynamic-complete)  ; in a shell, use tab completion
       (if (use-region-p)           ; tab is pressed is any other buffer, so
                                    ; execute with space insertion
-          (indent-region-custom 4) ; region was selected, call indent-region
+          (indent-region-custom 2) ; region was selected, call indent-region
         (insert "    ")            ; else insert four spaces as expected
         ))))
 
@@ -132,7 +134,7 @@
   (if (current-mode-one-of 'Custom-mode)
       ;; When using Customize, focus the previous field
       (widget-backward)
-    (untab-region 4)))
+    (untab-region 2)))
 
 (require 'buffer-move)
 (defun swap-buffers ()

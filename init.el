@@ -17,9 +17,9 @@
 ;;   paste. The same keybinding should re-enable it afterwards. Maybe C-c v?
 ;; - "Copy mode": add a keybinding that turns off line numbers (linum-mode) and
 ;;   closes all buffers besides the current one.
-;; - expand-region: https://github.com/magnars/expand-region.el
 ;; - smartparens: https://github.com/Fuco1/smartparens
 ;; - undo-tree: https://www.emacswiki.org/emacs/UndoTree
+;; - editorconfig-emacs: https://github.com/editorconfig/editorconfig-emacs
 ;;
 ;; Look at these example init files for more ideas:
 ;; https://github.com/bbatsov/emacs.d/blob/master/init.el
@@ -38,51 +38,17 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
-;; NOTE: I used to load packages manually because (I thought) my server's
-;; firewall didn't let me connect to Melpa or Elpa. However, I now know I can
-;; run `http_proxy= https_proxy= emacs` and connect to the repos. So...I will
-;; now install my packages via Melpa (M-x list-packages). This is great because
-;; I can easily update packages.
+;; I used to load packages manually because (I thought) my server's firewall
+;; didn't let me connect to Melpa or Elpa. However, I now know I can run
+;; `http_proxy= https_proxy= emacs` and connect to the repos. So...I will now
+;; install my packages via Melpa (M-x list-packages). This is great because I
+;; can easily update packages.
 ;;
-;; HOWEVER, I will still maintain a commented list below of the packages I have
-;; installed so that I can go back to manually loading them in the future if
-;; necessary.
-
-;; Set elisp directories
-
-;; (add-to-list 'load-path "~/.emacs.d/lisp/")
-;; (add-to-list 'load-path "~/.emacs.d/lisp/multiple-cursors")
-
-;; These "load" params correspond to file names in ~/.emacs.d/lisp:
-;; (load "web-mode")
-;; (load "auto-indent-mode")
-;; (load "smex")
-;; (load "ido-vertical-mode")
-;; (load "yasnippet")
-;; (load "multiple-cursors")
-;; (load "buffer-move")
-;; (load "yaml-mode")
-;; (load "markdown-mode")
-;; (load "dtrt-indent")
-;; (load "org-present")
-;; (load "color-theme-sanityinc-tomorrow")
-
-;; Disabled modules:
-;; (load "autopair")
-;; (load "smart-tabs-mode")
-;; (load "ido-ubiquitous")    ; slows down emacs and is not very useful
-
-;; (load "popup")              ; for auto-complete
-;; (load "auto-complete")
-
-;; (load "dash")
-;; (load "s")
-;; (load "powerline")
-;; (load "powerline-separators")
-;; (load "powerline-themes")
-;; (load "spaceline")
-;; (load "spaceline-segments")
-;; (load "spaceline-config")
+;; I no longer manually maintain a list of installed packages.
+;; package-selected-packages below keeps track of my installed packages
+;; automatically. To install them all on a new system, I just have to run
+;; package-install-selected-packages after evaluating that custom-set-variables
+;; expression.
 
 
 ;;; LOAD PERSONAL LISP FILES
@@ -110,7 +76,7 @@
 (load-user-file "keybindings.el")
 
 
-;;; BACKUP, AUTOSAVE, and LOCK FILES
+;;; GENERAL CUSTOMIZATIONS
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -138,7 +104,7 @@
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (go-mode expand-region golden-ratio-scroll-screen helm-projectile helm zone-rainbow zone-sl beacon smex projectile tango-plus-theme tangotango-theme tango-2-theme color-theme-solarized spacegray-theme smyx-theme seoul256-theme railscasts-reloaded-theme railscasts-theme pastelmac-theme noctilux-theme obsidian-theme mbo70s-theme liso-theme majapahit-theme lavender-theme mellow-theme material-theme color-theme-sanityinc-tomorrow dtrt-indent markdown-mode org-present buffer-move yaml-mode ido-vertical-mode yasnippet auto-indent-mode web-mode multiple-cursors magit)))
+    (go-mode git-gutter+ vue-html-mode vue-mode expand-region golden-ratio-scroll-screen helm-projectile helm zone-rainbow zone-sl beacon smex projectile tango-plus-theme tangotango-theme tango-2-theme color-theme-solarized spacegray-theme smyx-theme seoul256-theme railscasts-reloaded-theme railscasts-theme pastelmac-theme noctilux-theme obsidian-theme mbo70s-theme liso-theme majapahit-theme lavender-theme mellow-theme material-theme color-theme-sanityinc-tomorrow dtrt-indent markdown-mode buffer-move yaml-mode ido-vertical-mode yasnippet auto-indent-mode web-mode multiple-cursors magit)))
  '(pos-tip-foreground-color "#272822")
  '(safe-local-variable-values (quote ((require-final-newline))))
  '(text-mode-hook (quote (text-mode-hook-identify)))
@@ -152,6 +118,10 @@
  ;; If there is more than one, they won't work right.
  '(cperl-array-face ((t (:foreground "color-208"))))
  '(cperl-hash-face ((t (:foreground "color-208"))))
+ '(ediff-current-diff-C ((t (:background "color-17"))))
+ '(git-gutter+-added ((t (:inherit default :background "color-234" :foreground "green"))))
+ '(git-gutter+-deleted ((t (:inherit bold :background "color-234" :foreground "#FF1493"))))
+ '(git-gutter+-modified ((t (:inherit bold :background "color-234" :foreground "#5FD7FF"))))
  '(golden-ratio-scroll-highlight-line-face ((t (:background "color-236"))))
  '(hl-line ((t (:background "color-235")))))
 
@@ -168,7 +138,7 @@
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; Make all "yes or no" prompts show "y or n" instead
 
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace) ;; remove trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace) ;; remove trailing whitespace on save
 
 ;; When creating new files, auto-create any nonexistent directories in the path
 (defadvice find-file (before make-directory-maybe (filename &optional wildcards) activate)
