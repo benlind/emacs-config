@@ -299,3 +299,6 @@
 
 ;; Auto-revert unmodified files if they change on disk
 (global-auto-revert-mode t)
+
+;; Run gofmt on save
+(add-hook 'before-save-hook #'gofmt-before-save)
