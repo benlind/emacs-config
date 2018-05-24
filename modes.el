@@ -280,6 +280,20 @@
 ;; (setq git-gutter+-window-width 2)
 
 
+;;; FLYMD
+;; This is for previewing markdown files with auto-reload. Run flymd-flyit in a
+;; markdown file and it will open Firefox with the rendered markdown.
+
+(defun my-flymd-browser-function (url)
+  (let ((process-environment (browse-url-process-environment)))
+    (apply 'start-process
+           (concat "firefox " url)
+           nil
+           "/usr/bin/open"
+           (list "-a" "firefox" url))))
+(setq flymd-browser-open-function 'my-flymd-browser-function)
+
+
 ;;; MISC
 
 ;; Show column number in status bar
