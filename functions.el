@@ -338,17 +338,18 @@ current mode AND all of its parent modes."
   (interactive)
   (if (current-mode-one-of 'git-rebase-mode)
       (git-rebase-move-line-down 1)
-  (if (current-mode-one-of 'magit-status-mode)
-      (magit-section-forward-sibling)
-    (scroll-up-line))))
+  ;; To select next siblings in magit status:
+  ;; (if (current-mode-one-of 'magit-status-mode)
+  ;;     (magit-section-forward-sibling)
+    (scroll-up-line)))
 
 (defun my-scroll-up-line ()
   (interactive)
   (if (current-mode-one-of 'git-rebase-mode)
       (git-rebase-move-line-up 1)
-  (if (current-mode-one-of 'magit-status-mode)
-      (magit-section-backward-sibling)
-    (scroll-down-line))))
+  ;; (if (current-mode-one-of 'magit-status-mode)
+  ;;     (magit-section-backward-sibling)
+    (scroll-down-line)))
 
 
 ;;; IDEAS FOR NEW FUNCTIONS
