@@ -123,7 +123,8 @@
  '(git-gutter+-deleted ((t (:inherit bold :background "color-234" :foreground "#FF1493"))))
  '(git-gutter+-modified ((t (:inherit bold :background "color-234" :foreground "#5FD7FF"))))
  '(golden-ratio-scroll-highlight-line-face ((t (:background "color-236"))))
- '(hl-line ((t (:background "color-235")))))
+ '(hl-line ((t (:background "color-235"))))
+ '(smerge-refined-added ((t (:inherit smerge-refined-change :background "color-22")))))
 
 ;; Create the autosave and backups dirs if necessary, since emacs won't.
 (make-directory "~/.emacs.d/autosaves/" t)
