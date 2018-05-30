@@ -275,12 +275,14 @@ will be killed."
   (if (current-mode-one-of 'Custom-mode)
     ;; Activate button if in Customize mode
     (Custom-newline (point))
-  (if (current-mode-one-of 'magit-mode 'magit-status-mode 'magit-log-mode)
+  (if (current-mode-one-of 'magit-status-mode)
+    (call-interactively #'magit-diff-visit-file-other-window)
+  (if (current-mode-one-of 'magit-mode 'magit-log-mode)
     (magit-visit-thing)
   (if (current-mode-one-of 'magit-revision-mode)
     (call-interactively #'magit-diff-visit-file-other-window)
   ;; ...otherwise run my hooks
-  (run-hooks 'newline-hooks))))))
+  (run-hooks 'newline-hooks)))))))
 
 (add-hook 'newline-hooks #'extra-newline-inside-braces)
 (add-hook 'newline-hooks #'newline-maybe-indent)
