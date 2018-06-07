@@ -41,6 +41,10 @@
         (setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
 
+(defun my-find-file ()
+  (interactive)
+  (projectile-find-file))
+
 (defun my-split-window-focus ()
   "Run `split-window-right` and `other-window` in sequence."
   (interactive)
