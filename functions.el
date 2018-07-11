@@ -41,12 +41,16 @@
         (setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
 
+(defun my-find-file ()
+  (interactive)
+  (projectile-find-file))
+
 (defun my-split-window-focus ()
   "Run `split-window-right` and `other-window` in sequence."
   (interactive)
   (split-window-right)
   (other-window 1)
-  (helm-projectile-find-file))
+  (projectile-find-file))
 
 (defun my-delete-word-no-kill (arg)
   "Delete characters forward until encountering the end of a word.
@@ -275,12 +279,14 @@ will be killed."
   (if (current-mode-one-of 'Custom-mode)
     ;; Activate button if in Customize mode
     (Custom-newline (point))
-  (if (current-mode-one-of 'magit-mode 'magit-status-mode 'magit-log-mode)
+  (if (current-mode-one-of 'magit-status-mode)
+    (call-interactively #'magit-diff-visit-file-other-window)
+  (if (current-mode-one-of 'magit-mode 'magit-log-mode)
     (magit-visit-thing)
   (if (current-mode-one-of 'magit-revision-mode)
     (call-interactively #'magit-diff-visit-file-other-window)
   ;; ...otherwise run my hooks
-  (run-hooks 'newline-hooks))))))
+  (run-hooks 'newline-hooks)))))))
 
 (add-hook 'newline-hooks #'extra-newline-inside-braces)
 (add-hook 'newline-hooks #'newline-maybe-indent)
@@ -338,17 +344,18 @@ current mode AND all of its parent modes."
   (interactive)
   (if (current-mode-one-of 'git-rebase-mode)
       (git-rebase-move-line-down 1)
-  (if (current-mode-one-of 'magit-status-mode)
-      (magit-section-forward-sibling)
-    (scroll-up-line))))
+  ;; To select next siblings in magit status:
+  ;; (if (current-mode-one-of 'magit-status-mode)
+  ;;     (magit-section-forward-sibling)
+    (scroll-up-line)))
 
 (defun my-scroll-up-line ()
   (interactive)
   (if (current-mode-one-of 'git-rebase-mode)
       (git-rebase-move-line-up 1)
-  (if (current-mode-one-of 'magit-status-mode)
-      (magit-section-backward-sibling)
-    (scroll-down-line))))
+  ;; (if (current-mode-one-of 'magit-status-mode)
+  ;;     (magit-section-backward-sibling)
+    (scroll-down-line)))
 
 
 ;;; IDEAS FOR NEW FUNCTIONS

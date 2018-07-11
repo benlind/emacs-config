@@ -104,7 +104,7 @@
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (go-mode git-gutter+ vue-html-mode vue-mode expand-region golden-ratio-scroll-screen helm-projectile helm zone-rainbow zone-sl beacon smex projectile tango-plus-theme tangotango-theme tango-2-theme color-theme-solarized spacegray-theme smyx-theme seoul256-theme railscasts-reloaded-theme railscasts-theme pastelmac-theme noctilux-theme obsidian-theme mbo70s-theme liso-theme majapahit-theme lavender-theme mellow-theme material-theme color-theme-sanityinc-tomorrow dtrt-indent markdown-mode buffer-move yaml-mode ido-vertical-mode yasnippet auto-indent-mode web-mode multiple-cursors magit)))
+    (go-mode flymd git-gutter+ vue-html-mode vue-mode expand-region golden-ratio-scroll-screen helm-projectile helm zone-rainbow zone-sl beacon smex projectile tango-plus-theme tangotango-theme tango-2-theme color-theme-solarized spacegray-theme smyx-theme seoul256-theme railscasts-reloaded-theme railscasts-theme pastelmac-theme noctilux-theme obsidian-theme mbo70s-theme liso-theme majapahit-theme lavender-theme mellow-theme material-theme color-theme-sanityinc-tomorrow dtrt-indent markdown-mode buffer-move yaml-mode ido-vertical-mode yasnippet auto-indent-mode web-mode multiple-cursors magit)))
  '(pos-tip-foreground-color "#272822")
  '(safe-local-variable-values (quote ((require-final-newline))))
  '(text-mode-hook (quote (text-mode-hook-identify)))
@@ -123,7 +123,8 @@
  '(git-gutter+-deleted ((t (:inherit bold :background "color-234" :foreground "#FF1493"))))
  '(git-gutter+-modified ((t (:inherit bold :background "color-234" :foreground "#5FD7FF"))))
  '(golden-ratio-scroll-highlight-line-face ((t (:background "color-236"))))
- '(hl-line ((t (:background "color-235")))))
+ '(hl-line ((t (:background "color-235"))))
+ '(smerge-refined-added ((t (:inherit smerge-refined-change :background "color-22")))))
 
 ;; Create the autosave and backups dirs if necessary, since emacs won't.
 (make-directory "~/.emacs.d/autosaves/" t)

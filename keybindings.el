@@ -52,7 +52,12 @@
     (define-key map (kbd "C-x l")         'linum-mode)
     (define-key map (kbd "C-x t")         'toc)
     (define-key map (kbd "C-x C-t")       'toc)
-    (define-key map (kbd "C-c C-f")       'helm-projectile-find-file)
+    ;; I prefer projectile's built-in file finder over helm-projectile's because
+    ;; it is less fuzzy. It brings exact matches up to the top. To make this
+    ;; work I had to create my own find function the calls projectile-find-file,
+    ;; since calling that directly here still resulted in
+    ;; helm-projectile-find-file being called (for some reason).
+    (define-key map (kbd "C-c C-f")       'my-find-file)
     (define-key map (kbd "C-c C-s")       'helm-projectile-ack)
     (define-key map (kbd "C-x g")         'magit-status)
     (define-key map (kbd "C-x M-g")       'magit-dispatch-popup)
