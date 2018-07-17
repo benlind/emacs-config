@@ -313,3 +313,6 @@
 
 ;; Auto-revert unmodified files if they change on disk
 (global-auto-revert-mode t)
+
+;; Auto-revert dired buffers when files change
+(add-hook 'dired-mode-hook 'auto-revert-mode)
