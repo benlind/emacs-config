@@ -135,6 +135,13 @@
       (lambda (c)
         (if (char-equal c ?\") t (electric-pair-default-inhibit c))))
 
+;; Don't overwrite a matching char even if electric-pair thinks adding another
+;; will unbalance things. E.g., if I have {{ "|" }} where | is the cursor, and I
+;; type a quote, I want it to end up as {{ """ }}}. This is to fix the problem
+;; where electric-pair overwrites a matching quote even if there's whitespace
+;; before it (like when you type a quote at the end of a JSON line).
+(setq electric-pair-skip-self nil)
+
 ;; ;; Autopair
 
 ;; ;; Auto-close braces and quotes, and auto indent on RET inside braces
@@ -319,3 +326,6 @@
 
 ;; Load Jenkinsfiles in Groovy mode
 (add-to-list 'auto-mode-alist '("Jenkinsfile\\'" . groovy-mode))
+
+;; Run gofmt on save
+(add-hook 'before-save-hook #'gofmt-before-save)
