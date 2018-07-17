@@ -163,3 +163,14 @@
 ;; but that means when you edit a commit message it opens *scratch* instead of
 ;; COMMIT_EDITMSG.
 ;; (setq initial-buffer-choice t)
+
+;; Always open large files in read-only mode without undo. This should help
+;; prevent emacs from dying when opening huge files.
+(defun my-find-file-check-make-large-file-read-only-hook ()
+  "If a file is over a given size, make the buffer read only"
+  (when (> (buffer-size) (* 2 1024 1024)) ; 2MB
+    (setq buffer-read-only t)
+    (buffer-disable-undo)
+    (fundamental-mode)
+    (message "Buffer is set to read-only because it is large.  Undo also disabled.")))
+(add-hook 'find-file-hook 'my-find-file-check-make-large-file-read-only-hook)
