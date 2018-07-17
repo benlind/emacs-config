@@ -316,3 +316,6 @@
 
 ;; Auto-revert dired buffers when files change
 (add-hook 'dired-mode-hook 'auto-revert-mode)
+
+;; Load Jenkinsfiles in Groovy mode
+(add-to-list 'auto-mode-alist '("Jenkinsfile\\'" . groovy-mode))
