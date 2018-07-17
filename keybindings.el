@@ -73,6 +73,8 @@
     (define-key map (kbd "C-c k")         'windmove-up)
     (define-key map (kbd "C-c <down>")    'windmove-down)
     (define-key map (kbd "C-c j")         'windmove-down)
+    (define-key map (kbd "C-M-n")         'move-line-down)
+    (define-key map (kbd "C-M-p")         'move-line-up)
     map)
   "my-keys-minor-mode keymap")
 
