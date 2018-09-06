@@ -49,6 +49,8 @@
 ;; automatically. To install them all on a new system, I just have to run
 ;; package-install-selected-packages after evaluating that custom-set-variables
 ;; expression.
+;;
+;; UPDATING PACKAGES: M-x list-packages U x
 
 
 ;;; LOAD PERSONAL LISP FILES
