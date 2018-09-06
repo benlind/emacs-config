@@ -301,6 +301,17 @@
 (setq flymd-browser-open-function 'my-flymd-browser-function)
 
 
+;;; DIRED
+
+;; Auto-revert dired buffers when files change
+(add-hook 'dired-mode-hook 'auto-revert-mode)
+
+;; Auto-guess the desired target directory when copying files. If you have two
+;; dired buffers open side-by-side and copy from one, dired will autofill the
+;; path of the other dired buffer.
+(setq dired-dwim-target t)
+
+
 ;;; MISC
 
 ;; Show column number in status bar
@@ -320,9 +331,6 @@
 
 ;; Auto-revert unmodified files if they change on disk
 (global-auto-revert-mode t)
-
-;; Auto-revert dired buffers when files change
-(add-hook 'dired-mode-hook 'auto-revert-mode)
 
 ;; Load Jenkinsfiles in Groovy mode
 (add-to-list 'auto-mode-alist '("Jenkinsfile\\'" . groovy-mode))
