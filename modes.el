@@ -247,7 +247,7 @@
 
 ;;; PROJECTILE
 
-(projectile-mode)
+(projectile-mode +1)
 
 ;; Cache ALL the FILES \(°□°)/
 ;;

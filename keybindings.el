@@ -61,6 +61,7 @@
     (define-key map (kbd "C-c C-s")       'helm-projectile-ack)
     (define-key map (kbd "C-x g")         'magit-status)
     (define-key map (kbd "C-x M-g")       'magit-dispatch-popup)
+    (define-key map (kbd "C-c p")         'projectile-command-map)
     (define-key map (kbd "C-c C-p")       nil)  ; otherwise flyspell starts checking everything
     ;; Press M-= once to activate and then = to expand, - to contract, 0 to quit:
     (define-key map (kbd "M-=")           'er/expand-region)
