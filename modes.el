@@ -335,5 +335,7 @@
 ;; Load Jenkinsfiles in Groovy mode
 (add-to-list 'auto-mode-alist '("Jenkinsfile\\'" . groovy-mode))
 
-;; Run gofmt on save
-(add-hook 'before-save-hook #'gofmt-before-save)
+;; Run gofmt on save. You will have to run this command before goimports works:
+;;   go get golang.org/x/tools/cmd/goimports
+(setq gofmt-command "goimports")
+(add-hook 'before-save-hook 'gofmt-before-save)
