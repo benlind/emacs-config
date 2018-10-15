@@ -291,8 +291,10 @@ will be killed."
     (call-interactively #'magit-diff-visit-file-other-window)
   (if (current-mode-one-of 'ibuffer-mode)
     (call-interactively #'ibuffer-visit-buffer)
+  (if (current-mode-one-of 'helm-ag-mode)
+    (call-interactively #'helm-ag-mode-jump-other-window)
   ;; ...otherwise run my hooks
-  (run-hooks 'newline-hooks))))))))
+  (run-hooks 'newline-hooks)))))))))
 
 (add-hook 'newline-hooks #'extra-newline-inside-braces)
 (add-hook 'newline-hooks #'newline-maybe-indent)
