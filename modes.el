@@ -322,4 +322,5 @@
 (global-auto-revert-mode t)
 
 ;; Run gofmt on save
+(setq gofmt-command "goimports")
 (add-hook 'before-save-hook #'gofmt-before-save)
