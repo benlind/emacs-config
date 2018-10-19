@@ -247,7 +247,7 @@
 
 ;;; PROJECTILE
 
-(projectile-mode)
+(projectile-mode +1)
 
 ;; Cache ALL the FILES \(°□°)/
 ;;
@@ -301,6 +301,17 @@
 (setq flymd-browser-open-function 'my-flymd-browser-function)
 
 
+;;; DIRED
+
+;; Auto-revert dired buffers when files change
+(add-hook 'dired-mode-hook 'auto-revert-mode)
+
+;; Auto-guess the desired target directory when copying files. If you have two
+;; dired buffers open side-by-side and copy from one, dired will autofill the
+;; path of the other dired buffer.
+(setq dired-dwim-target t)
+
+
 ;;; MISC
 
 ;; Show column number in status bar
@@ -321,6 +332,10 @@
 ;; Auto-revert unmodified files if they change on disk
 (global-auto-revert-mode t)
 
-;; Run gofmt on save
+;; Load Jenkinsfiles in Groovy mode
+(add-to-list 'auto-mode-alist '("Jenkinsfile\\'" . groovy-mode))
+
+;; Run gofmt on save. You will have to run this command before goimports works:
+;;   go get golang.org/x/tools/cmd/goimports
 (setq gofmt-command "goimports")
-(add-hook 'before-save-hook #'gofmt-before-save)
+(add-hook 'before-save-hook 'gofmt-before-save)

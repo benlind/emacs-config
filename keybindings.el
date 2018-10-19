@@ -61,6 +61,7 @@
     (define-key map (kbd "C-c C-s")       'helm-projectile-ack)
     (define-key map (kbd "C-x g")         'magit-status)
     (define-key map (kbd "C-x M-g")       'magit-dispatch-popup)
+    (define-key map (kbd "C-c p")         'projectile-command-map)
     (define-key map (kbd "C-c C-p")       nil)  ; otherwise flyspell starts checking everything
     ;; Press M-= once to activate and then = to expand, - to contract, 0 to quit:
     (define-key map (kbd "M-=")           'er/expand-region)
@@ -73,6 +74,10 @@
     (define-key map (kbd "C-c k")         'windmove-up)
     (define-key map (kbd "C-c <down>")    'windmove-down)
     (define-key map (kbd "C-c j")         'windmove-down)
+    (define-key map (kbd "C-M-n")         'move-line-down)
+    (define-key map (kbd "C-M-p")         'move-line-up)
+    (define-key map (kbd "C-c C-v")       'vue-mode-reparse)
+    (define-key map (kbd "C-c v")         'vue-mode-reparse)
     map)
   "my-keys-minor-mode keymap")
 

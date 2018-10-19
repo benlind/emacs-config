@@ -49,6 +49,8 @@
 ;; automatically. To install them all on a new system, I just have to run
 ;; package-install-selected-packages after evaluating that custom-set-variables
 ;; expression.
+;;
+;; UPDATING PACKAGES: M-x list-packages U x
 
 
 ;;; LOAD PERSONAL LISP FILES
@@ -104,7 +106,7 @@
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (go-mode flymd git-gutter+ vue-html-mode vue-mode expand-region golden-ratio-scroll-screen helm-projectile helm zone-rainbow zone-sl beacon smex projectile tango-plus-theme tangotango-theme tango-2-theme color-theme-solarized spacegray-theme smyx-theme seoul256-theme railscasts-reloaded-theme railscasts-theme pastelmac-theme noctilux-theme obsidian-theme mbo70s-theme liso-theme majapahit-theme lavender-theme mellow-theme material-theme color-theme-sanityinc-tomorrow dtrt-indent markdown-mode buffer-move yaml-mode ido-vertical-mode yasnippet auto-indent-mode web-mode multiple-cursors magit)))
+    (groovy-mode go-mode flymd git-gutter+ vue-html-mode vue-mode expand-region golden-ratio-scroll-screen helm-projectile helm zone-rainbow zone-sl beacon smex projectile tango-plus-theme tangotango-theme tango-2-theme color-theme-solarized spacegray-theme smyx-theme seoul256-theme railscasts-reloaded-theme railscasts-theme pastelmac-theme noctilux-theme obsidian-theme mbo70s-theme liso-theme majapahit-theme lavender-theme mellow-theme material-theme color-theme-sanityinc-tomorrow dtrt-indent markdown-mode buffer-move yaml-mode ido-vertical-mode yasnippet auto-indent-mode web-mode multiple-cursors magit)))
  '(pos-tip-foreground-color "#272822")
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values (quote ((require-final-newline))))
@@ -164,3 +166,14 @@
 ;; but that means when you edit a commit message it opens *scratch* instead of
 ;; COMMIT_EDITMSG.
 ;; (setq initial-buffer-choice t)
+
+;; Always open large files in read-only mode without undo. This should help
+;; prevent emacs from dying when opening huge files.
+(defun my-find-file-check-make-large-file-read-only-hook ()
+  "If a file is over a given size, make the buffer read only"
+  (when (> (buffer-size) (* 2 1024 1024)) ; 2MB
+    (setq buffer-read-only t)
+    (buffer-disable-undo)
+    (fundamental-mode)
+    (message "Buffer is set to read-only because it is large.  Undo also disabled.")))
+(add-hook 'find-file-hook 'my-find-file-check-make-large-file-read-only-hook)

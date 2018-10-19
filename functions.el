@@ -271,6 +271,10 @@ will be killed."
 
 ;;; CUSTOMIZE NEWLINE FUNCTION
 
+;; To figure out what a keybinding SHOULD be in a mode, comment out the <RET>
+;; line in keybindings.el, start a new emacs session, enter the desired mode,
+;; and hit C-h k RET. There might be a better way via describe-mode
+;; (https://stackoverflow.com/a/13980476/1054633).
 (defun newline-dwim ()
   (interactive)
   (if (current-mode-one-of 'dired-mode)
@@ -285,8 +289,10 @@ will be killed."
     (magit-visit-thing)
   (if (current-mode-one-of 'magit-revision-mode)
     (call-interactively #'magit-diff-visit-file-other-window)
+  (if (current-mode-one-of 'ibuffer-mode)
+    (call-interactively #'ibuffer-visit-buffer)
   ;; ...otherwise run my hooks
-  (run-hooks 'newline-hooks)))))))
+  (run-hooks 'newline-hooks))))))))
 
 (add-hook 'newline-hooks #'extra-newline-inside-braces)
 (add-hook 'newline-hooks #'newline-maybe-indent)
@@ -356,6 +362,21 @@ current mode AND all of its parent modes."
   ;; (if (current-mode-one-of 'magit-status-mode)
   ;;     (magit-section-backward-sibling)
     (scroll-down-line)))
+
+(defun move-line-up ()
+  "Move the current line up and indent"
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
+
+(defun move-line-down ()
+  "Move the current line down and indent"
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
 
 
 ;;; IDEAS FOR NEW FUNCTIONS
