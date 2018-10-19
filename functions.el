@@ -242,6 +242,8 @@
            (setq regexp "^\\(sub\\|has\\|=head1\\|requires\\|around\\) "))
           ((current-mode-one-of 'sh-mode)    ; regexp for shell scripts
            (setq regexp "^[A-za-z0-9_]+()"))
+          ((current-mode-one-of 'go-mode)    ; regexp for go
+           (setq regexp "^func "))
       (setq regexp "^function "))            ; regexp for everything else
     (occur regexp)))
 
