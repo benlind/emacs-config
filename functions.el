@@ -245,7 +245,7 @@
           ((current-mode-one-of 'go-mode)    ; regexp for go
            (setq regexp "^func "))
       (setq regexp "^function "))            ; regexp for everything else
-    (occur regexp)))
+    (occur regexp))) ; the buffer will be auto-focused (see modes.el)
 
 (defun revert-all-file-buffers ()
   "Refresh all open file buffers without confirmation.

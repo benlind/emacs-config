@@ -339,3 +339,8 @@
 ;;   go get golang.org/x/tools/cmd/goimports
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
+
+;; Auto-focus the *Occur* buffer when it is opened. This is used for toc().
+(add-hook 'occur-hook
+          '(lambda ()
+             (switch-to-buffer-other-window "*Occur*")))
