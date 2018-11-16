@@ -242,8 +242,10 @@
            (setq regexp "^\\(sub\\|has\\|=head1\\|requires\\|around\\) "))
           ((current-mode-one-of 'sh-mode)    ; regexp for shell scripts
            (setq regexp "^[A-za-z0-9_]+()"))
+          ((current-mode-one-of 'go-mode)    ; regexp for go
+           (setq regexp "^func "))
       (setq regexp "^function "))            ; regexp for everything else
-    (occur regexp)))
+    (occur regexp))) ; the buffer will be auto-focused (see modes.el)
 
 (defun revert-all-file-buffers ()
   "Refresh all open file buffers without confirmation.
