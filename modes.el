@@ -303,6 +303,9 @@
 
 ;;; DIRED
 
+;; Tell Dired+ to reuse buffers
+(diredp-toggle-find-file-reuse-dir 1)
+
 ;; Auto-revert dired buffers when files change
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 

@@ -53,6 +53,14 @@
 ;; UPDATING PACKAGES: M-x list-packages U x
 
 
+;;; LOAD MANUALLY-DOWNLOADED PACKAGES
+
+(add-to-list 'load-path "~/.emacs.d/manually-downloaded-packages/")
+
+;; These "load" params correspond to file names in the above directory:
+(load "dired+")
+
+
 ;;; LOAD PERSONAL LISP FILES
 
 ;; Set up functions for loading my lisp files
@@ -70,7 +78,7 @@
   "Load a file in current user's configuration directory"
   (load-file (expand-file-name file user-init-dir)))
 
-;; Load my list files
+;; Load my lisp files
 (load-user-file "modes.el")
 (load-user-file "functions.el")
 (load-user-file "visuals.el")
@@ -180,3 +188,4 @@
     (fundamental-mode)
     (message "Buffer is set to read-only because it is large.  Undo also disabled.")))
 (add-hook 'find-file-hook 'my-find-file-check-make-large-file-read-only-hook)
+(put 'dired-find-alternate-file 'disabled nil)
