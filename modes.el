@@ -317,6 +317,16 @@
 ;; path of the other dired buffer.
 (setq dired-dwim-target t)
 
+;; Always delete dired directory buffers when the directory has been deleted
+(define-advice dired-clean-up-after-deletion
+    (:around (old-fun &rest r) kill-dired-buffer-quietly)
+  (define-advice y-or-n-p (:around (old-fun prompt) just-yes)
+    (if (string-prefix-p "Kill Dired buffer" prompt)
+        t
+      (funcall old-fun prompt)))
+  (unwind-protect (apply old-fun r)
+    (advice-remove 'y-or-n-p #'y-or-n-p@just-yes)))
+
 
 ;;; MISC
 
