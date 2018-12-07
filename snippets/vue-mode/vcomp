@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Components
+# key: vcomp
+# --
+
+components: { $1 }$2

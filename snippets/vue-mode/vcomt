@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Computed
+# key: vcomt
+# --
+
+components: {
+  $1
+}$2

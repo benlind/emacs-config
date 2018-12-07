@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Methods
+# key: vm
+# --
+
+methods: {
+  $1
+}$2

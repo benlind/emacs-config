@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: Data
+# key: vd
+# --
+
+data() {
+  return {
+    $1
+  };
+}$2
