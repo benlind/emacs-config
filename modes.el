@@ -305,6 +305,8 @@
 
 
 ;;; DIRED
+;; Note, to show file details in dired+, hit left parenthesis: (
+;; (https://stackoverflow.com/a/22921872/1054633)
 
 ;; Tell Dired+ to reuse buffers
 (diredp-toggle-find-file-reuse-dir 1)
