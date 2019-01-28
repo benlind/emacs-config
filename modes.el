@@ -328,6 +328,12 @@
     (advice-remove 'y-or-n-p #'y-or-n-p@just-yes)))
 
 
+;;; ORG MODE
+
+;; Wrap lines on word boundaries
+(add-hook 'org-mode-hook #'toggle-word-wrap)
+
+
 ;;; MISC
 
 ;; Show column number in status bar
