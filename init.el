@@ -114,6 +114,7 @@
      ("#F309DF" . 85)
      ("#3C3D37" . 100))))
  '(magit-diff-use-overlays nil)
+ '(org-blank-before-new-entry (quote ((heading) (plain-list-item . auto))))
  '(org-startup-truncated nil)
  '(package-selected-packages
    (quote
