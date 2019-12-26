@@ -227,6 +227,7 @@
 (setq yas-snippet-dirs
       '("~/.emacs.d/snippets"))
 (yas-global-mode 1)
+(setq yas/indent-line nil) ; don't auto-indent snippet code
 
 
 ;;; MARKDOWN
@@ -328,6 +329,12 @@
       (funcall old-fun prompt)))
   (unwind-protect (apply old-fun r)
     (advice-remove 'y-or-n-p #'y-or-n-p@just-yes)))
+
+
+;;; ORG MODE
+
+;; Wrap lines on word boundaries
+(add-hook 'org-mode-hook #'toggle-word-wrap)
 
 
 ;;; MISC

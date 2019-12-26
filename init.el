@@ -114,6 +114,8 @@
      ("#F309DF" . 85)
      ("#3C3D37" . 100))))
  '(magit-diff-use-overlays nil)
+ '(org-blank-before-new-entry (quote ((heading) (plain-list-item . auto))))
+ '(org-startup-truncated nil)
  '(package-selected-packages
    (quote
     (nginx-mode helm-ag groovy-mode go-mode flymd git-gutter+ vue-html-mode vue-mode expand-region golden-ratio-scroll-screen helm-projectile helm zone-rainbow zone-sl beacon smex projectile tango-plus-theme tangotango-theme tango-2-theme color-theme-solarized spacegray-theme smyx-theme seoul256-theme railscasts-reloaded-theme railscasts-theme pastelmac-theme noctilux-theme obsidian-theme mbo70s-theme liso-theme majapahit-theme lavender-theme mellow-theme material-theme color-theme-sanityinc-tomorrow dtrt-indent markdown-mode buffer-move yaml-mode ido-vertical-mode yasnippet auto-indent-mode web-mode multiple-cursors magit)))

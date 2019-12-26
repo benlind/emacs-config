@@ -6,7 +6,7 @@
   "Inserts a newline with no indentation."
   (interactive)
   (if (current-mode-one-of 'org-mode)
-      (org-insert-heading)  ; do the Right Thing for org mode
+      (org-meta-return)  ; do the Right Thing for org mode
     ;; Otherwise insert a newline with no indentation
     (open-line 1)
     (next-line 1)
