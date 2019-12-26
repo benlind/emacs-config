@@ -50,7 +50,7 @@
   (interactive)
   (split-window-right)
   (other-window 1)
-  (projectile-find-file))
+  (helm-projectile-switch-project))
 
 (defun my-delete-word-no-kill (arg)
   "Delete characters forward until encountering the end of a word.
