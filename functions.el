@@ -185,6 +185,7 @@
            'fundamental-mode
            'sql-mode
            'makefile-gmake-mode
+           'org-mode
            )
     (indent-region (region-beginning) (region-end))))
 
