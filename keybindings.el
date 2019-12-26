@@ -58,7 +58,7 @@
     ;; since calling that directly here still resulted in
     ;; helm-projectile-find-file being called (for some reason).
     (define-key map (kbd "C-c C-f")       'my-find-file)
-    (define-key map (kbd "C-c C-s")       'helm-ag-project-root)
+    (define-key map (kbd "C-c C-s")       'helm-projectile-grep)
     (define-key map (kbd "C-x g")         'magit-status)
     (define-key map (kbd "C-x M-g")       'magit-dispatch-popup)
     (define-key map (kbd "C-c p")         'projectile-command-map)
